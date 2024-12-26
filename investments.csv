@@ -1,0 +1,4 @@
+Option Type,Current NIFTY Price,Strike Price,Investment Amount,Expiry Date,Lots
+call,15000,15050,1000,2024-12-26,1
+call,15000,15100,1000,2024-12-26,1
+call,15000,15150,1000,2024-12-26,1
