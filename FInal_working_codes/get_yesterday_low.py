@@ -1,5 +1,4 @@
 import pandas as pd
-
 from datetime import datetime, timedelta
 from pya3 import Aliceblue
 import ssl
@@ -53,15 +52,13 @@ def analyze_csv():
         # Read the CSV file
         df = pd.read_csv("/Users/mohitkumar/Downloads/Php Project/yesterday_data.csv")
         yesterday = datetime.now() - timedelta(days=1)
-    # Format the date if needed (e.g., for printing or API calls)
+        # Format the date if needed (e.g., for printing or API calls)
         yesterday_formatted = yesterday.strftime('%Y-%m-%d')
-        
         # Check if yesterday was Saturday or Sunday
         if yesterday.strftime('%a') in ['Sat', 'Sun']:
             # If yes, move back to the last Friday
             days_to_subtract = (yesterday.weekday() - 4) % 7
             yesterday = yesterday - timedelta(days=days_to_subtract)
-
         # Format the date if needed
         yesterday_formatted = yesterday.strftime('%Y-%m-%d')
         # Check unique values and types for each column
@@ -83,9 +80,6 @@ def analyze_csv():
 
 
 def update_csv_with_yesterday_data(yesterday_low_value):
-    """
-    Update the CSV file with yesterday's date and low value, replacing any existing data for that date.
-    """
     try:
         # File path
         file_path = "/Users/mohitkumar/Downloads/Php Project/yesterday_data.csv"
@@ -118,10 +112,5 @@ def update_csv_with_yesterday_data(yesterday_low_value):
         return 0
 
 
-
-
-
-# Call the function
-# if __name__ == "__main__":
 print(analyze_csv())
     
