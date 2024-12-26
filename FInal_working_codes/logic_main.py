@@ -380,3 +380,7 @@ def fetch_nifty_data(checking_time):
 while True:
     fetch_nifty_data(checking_time=0) # checking_type=0 means first level of algo checking
     t.sleep(0.5)
+
+
+
+# Final_working_codes/logic_main.py
