@@ -2,7 +2,7 @@ import hashlib
 import requests
 import json
 
-
+#f
 # login before run this code in alice blue web app
 def key_genrater():
     # Input values
