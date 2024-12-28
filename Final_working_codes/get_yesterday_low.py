@@ -37,7 +37,7 @@ def get_yesterday_low():
     try:
         token = alice.get_instrument_by_symbol(exchange, spot_symbol)
         data = alice.get_historical(token, from_date, to_date, interval='1', indices=True)
-        print("low values is ",min(data['low']))
+        # print("low values is ",min(data['low']))
         update_csv_with_yesterday_data(min(data['low']))
         # return (min(data['low']))
     
@@ -69,7 +69,7 @@ def analyze_csv():
                 if not yesterday_rows.empty:
                     # Find the minimum value in the 'low' column for the matching rows
                     float_value = yesterday_rows['low'].min()
-                    print("Yesterday's lowest value is:", float_value)
+                    # print("Yesterday's lowest value is:", float_value)
                     return float_value
 
                 else:
@@ -106,12 +106,12 @@ def update_csv_with_yesterday_data(yesterday_low_value):
 
         # Save the updated DataFrame back to the CSV
         df.to_csv(file_path, index=False)
-        print(f"Replaced/Updated CSV with yesterday's data: {new_row.to_dict(orient='records')[0]}")
+        # print(f"Replaced/Updated CSV with yesterday's data: {new_row.to_dict(orient='records')[0]}")
         analyze_csv()
 
     except Exception as e:
         return 0
 
 
-print(analyze_csv())
+# print(analyze_csv())
     
