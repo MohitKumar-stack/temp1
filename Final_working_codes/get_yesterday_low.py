@@ -50,7 +50,7 @@ def get_yesterday_low():
 def analyze_csv():
     try:
         # Read the CSV file
-        df = pd.read_csv("/Users/mohitkumar/Downloads/Php Project/Final_working_codes/yesterday_data.csv")
+        df = pd.read_csv("/Users/mohitkumar/Downloads/Php Project/yesterday_data.csv")
         yesterday = datetime.now() - timedelta(days=1)
         # Format the date if needed (e.g., for printing or API calls)
         yesterday_formatted = yesterday.strftime('%Y-%m-%d')

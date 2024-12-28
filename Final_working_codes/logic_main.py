@@ -22,7 +22,7 @@ key_genrater()  # for key_genrater function
 
 global yesterday_low
 yesterday_low=analyze_csv()
-print("yesterday low",yesterday_low)
+# print("yesterday low",yesterday_low)
 
 # yesterday_low= 23685.15
 
@@ -289,7 +289,7 @@ def fetch_nifty_data(checking_time):
             #  check H1 Condtions 
             if morning_start <= current_time <= morning_end:
                 print("morning H1 Conditions  start analysing")
-                print("yesterday low",yesterday_low)
+                # print("yesterday low",yesterday_low)
                 #  check for H1 call conditions
     
                 if (Decimal(nifty_high) - Decimal(nifty_open) > 75) and (Decimal(nifty_open) - Decimal(nifty_low)) < 75 and Decimal(nifty_low) > Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) > 5:
@@ -343,7 +343,7 @@ def fetch_nifty_data(checking_time):
             #  check H2 Condtions afternoon  
             elif afternoon_start <= current_time <= afternoon_end:
                 print("H2  afternoon Conditions  start analysing")
-                print("yesterday low",yesterday_low)
+                # print("yesterday low",yesterday_low)
                 #  check for H2 call conditions
                 if (Decimal(nifty_high) - Decimal(nifty_open) > 75) and (Decimal(nifty_open) - Decimal(nifty_low)) < 75 and (LTP_at_1 - LTP_at_1230) > 5:
                     print("H2 Call condition satisfy at 1 PM")
