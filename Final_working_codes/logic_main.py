@@ -398,7 +398,7 @@ def fetch_nifty_data(checking_time):
                 get_strikes_and_expiry(nifty_price, 'C',strike_rate)
 
 
-    #condtion check at 1:15 PM CALL 
+    #condtion check at 1:15 PM CALl
 
         if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:15:59", "%H:%M:%S").time():
             if (Decimal(nifty_high) - Decimal(nifty_open) > 75)  and (Decimal(nifty_open) - Decimal(nifty_low)) < 75 and Decimal(nifty_low) > Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) > 5 and (LTP_at_1015 - LTP_at_10) > 0:
