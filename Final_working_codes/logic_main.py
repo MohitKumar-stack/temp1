@@ -252,13 +252,8 @@ def write_to_csv(**kwargs):
 
 
 
-
-
-
-
-
 # Fetch real-time data for NIFTY50 and implement logic
-def fetch_nifty_data(checking_time):
+def fetch_nifty_data():
     try:
         # Fetch data for NIFTY 50
         instrument = alice.get_instrument_by_symbol('NSE', 'NIFTY 50')
@@ -458,7 +453,7 @@ def fetch_nifty_data(checking_time):
 
 # Fetch NIFTY data every 5 seconds
 while True:
-    fetch_nifty_data(checking_time=0) # checking_type=0 means first level of algo checking
+    fetch_nifty_data() # checking_type=0 means first level of algo checking
     t.sleep(0.5)
 
 
