@@ -461,5 +461,4 @@ while True:
     fetch_nifty_data(checking_time=0) # checking_type=0 means first level of algo checking
     t.sleep(0.5)
 
-# get_strikes_and_expiry(23850, 'C',strike_rate)
 
