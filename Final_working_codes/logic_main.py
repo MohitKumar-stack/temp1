@@ -15,7 +15,7 @@ import logging
 from order_trigger import place_order,sell_order
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 # Call the key_genrater function to get the each_code
 key_genrater()  # for key_genrater function
