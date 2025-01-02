@@ -38,6 +38,7 @@ def get_yesterday_low():
         token = alice.get_instrument_by_symbol(exchange, spot_symbol)
         data = alice.get_historical(token, from_date, to_date, interval='1', indices=True)
         # print("low values is ",min(data['low']))
+        # print("Go to update_csv_with_yesterday_data function  ")
         update_csv_with_yesterday_data(min(data['low']))
         # return (min(data['low']))
     
@@ -71,13 +72,15 @@ def analyze_csv():
                     float_value = yesterday_rows['low'].min()
                     # print("Yesterday's lowest value is:", float_value)
                     return float_value
+                    break
 
                 else:
-                    get_yesterday_low() # all the function to get the value of yesterday low
+                    # print("Go to get_yesterday_low function  ")
+                    return get_yesterday_low() # all the function to get the value of yesterday low
 
     except FileNotFoundError:
         print("file not found")
-        pass
+        return get_yesterday_low()
 
 
 def update_csv_with_yesterday_data(yesterday_low_value):
@@ -107,11 +110,17 @@ def update_csv_with_yesterday_data(yesterday_low_value):
         # Save the updated DataFrame back to the CSV
         df.to_csv(file_path, index=False)
         # print(f"Replaced/Updated CSV with yesterday's data: {new_row.to_dict(orient='records')[0]}")
-        analyze_csv()
+        # print(" go to again analyze_csv for update the shete ")
+        return analyze_csv()
 
     except Exception as e:
         return 0
+        
 
-
-# print(analyze_csv())
+def yesterday_lowest_market_value():
+    analyze_csv()
+    temp=analyze_csv()
+    if temp is not None:
+        return(temp)
     
+yesterday_lowest_market_value()
