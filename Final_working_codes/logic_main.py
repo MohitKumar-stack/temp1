@@ -107,7 +107,7 @@ def get_strikes_and_expiry(nifty_price, option_type,strike_rate,nifty_low,nifty_
             for i in forward_strikes:
                 temp=get_last_trade_price(i, expiry_date,option_type)
                 # print(temp)
-                if 94<=temp<=104:
+                if 94<=temp<=299:
                     ls.append(temp)
                     if strike_rate==0:
                         strike_rate=i
@@ -521,10 +521,11 @@ def fetch_nifty_data():
         print(f"Error fetching NIFTY data: {e}")
 
 # Fetch NIFTY data every 5 seconds
-while True:
-    fetch_nifty_data() # checking_type=0 means first level of algo checking
-    t.sleep(0.5)
+# while True:
+#     fetch_nifty_data() # checking_type=0 means first level of algo checking
+#     t.sleep(0.5)
 
-# get_strikes_and_expiry(24300,"C",0,23000,23000,23000)
+if current_time >= datetime.strptime("19:49:00", "%H:%M:%S").time() and current_time <= datetime.strptime("19:49:01", "%H:%M:%S"):
+    get_strikes_and_expiry(24300,"C",0,23000,23000,23000)
 
 
