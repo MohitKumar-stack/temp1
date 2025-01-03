@@ -525,7 +525,14 @@ def fetch_nifty_data():
 #     fetch_nifty_data() # checking_type=0 means first level of algo checking
 #     t.sleep(0.5)
 
-if current_time >= datetime.strptime("19:56:00", "%H:%M:%S").time() and current_time <= datetime.strptime("19:56:01", "%H:%M:%S"):
-    get_strikes_and_expiry(24300,"C",0,23000,23000,23000)
+
+if current_time >= datetime.strptime("20:07:00", "%H:%M:%S").time() and current_time <= datetime.strptime("20:07:01", "%H:%M:%S"):
+    get_strikes_and_expiry(24301,"C",0,23000,23000,23000)
+
+if current_time >= datetime.strptime("20:07:00", "%H:%M:%S").time() and current_time <= datetime.strptime("20:07:05", "%H:%M:%S"):
+    get_strikes_and_expiry(24302,"C",0,23000,23000,23000)
+
+if current_time >= datetime.strptime("20:07:00", "%H:%M:%S").time() and current_time <= datetime.strptime("20:07:10", "%H:%M:%S"):
+    get_strikes_and_expiry(24303,"C",0,23000,23000,23000)
 
 
