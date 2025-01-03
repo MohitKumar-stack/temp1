@@ -21,7 +21,7 @@ session_id = alice.get_session_id()['sessionID']
 def place_order(symbol):
                 print(alice.place_order(transaction_type = TransactionType.Buy, 
                     instrument = alice.get_instrument_by_symbol("NFO", symbol), 
-                    quantity = 3,
+                    quantity = 150,
                     order_type = OrderType.Market, 
                     product_type = ProductType.Intraday))
     
@@ -32,7 +32,7 @@ def place_order(symbol):
 def sell_order(symbol):
     print(alice.place_order(transaction_type = TransactionType.Sell, 
                             instrument = alice.get_instrument_by_symbol("NFO", symbol), 
-                            quantity = 3,
+                            quantity = 150,
                             order_type = OrderType.Market, 
                             product_type = ProductType.Intraday))
     
