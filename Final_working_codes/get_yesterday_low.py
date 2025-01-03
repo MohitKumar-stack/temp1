@@ -1,11 +1,147 @@
-import pandas as pd
+import mysql.connector
+from mysql.connector import Error
 from datetime import datetime, timedelta
+import pandas as pd
 from pya3 import Aliceblue
 import ssl
-import os
 
 
-# Ensure SSL is available
+
+def save_yesterday_low(date, low):
+    """
+    Save the given date and low value into the 'yesterday_low' table.
+
+    Args:
+        date (str): The date value in 'YYYY-MM-DD' format.
+        low (float): The low value to store in the table.
+    """
+    connection = None  # Initialize connection as None
+    cursor = None  # Initialize cursor as None
+    try:
+        # Establish a connection to the database
+        connection = mysql.connector.connect(
+            host='82.197.82.130',       # Access host
+            port=3306,                  # Default MySQL port
+            user='u791720918_mohit3',   # Replace with your database username
+            password='sofwaq-fyctes-8gYvze',  # Replace with your database password
+            database='u791720918_temp_stock'  # Replace with your database name
+        )
+
+        if connection.is_connected():
+            # print("Successfully connected to the database")
+            
+            # Prepare the SQL query
+            query = "INSERT INTO yesterday_low (date, low) VALUES (%s, %s)"
+            data = (date, low)
+
+            # Execute the query
+            cursor = connection.cursor()
+            cursor.execute(query, data)
+            connection.commit()  # Commit the transaction
+            
+            # print(f"Data inserted: Date={date}, Low={low}")
+
+    except Error as e:
+        pass
+        # print(f"Error while connecting to MySQL: {e}")
+
+    finally:
+        # Close cursor and connection if they were initialized
+        if cursor is not None:
+            cursor.close()
+            # print("Cursor closed.")
+        if connection is not None and connection.is_connected():
+            connection.close()
+            get_low_for_yesterday_or_friday()
+            # print("MySQL connection closed.")
+
+# Example usage
+# save_yesterday_low("2025-01-02", 3443.4)  # Replace with your actual date and low value
+
+
+
+
+
+
+def get_low_for_yesterday_or_friday():
+    """
+    Fetch the low value from the 'yesterday_low' table for:
+    - Yesterday's date if it exists in the table
+    - The most recent Friday if yesterday is Saturday or Sunday
+    Returns:
+        float: The low value for the relevant date, or None if not found.
+    """
+    connection = None  # Initialize connection as None
+    cursor = None  # Initialize cursor as None
+    try:
+        # Establish a connection to the database
+        connection = mysql.connector.connect(
+            host='82.197.82.130',       # Access host
+            port=3306,                  # Default MySQL port
+            user='u791720918_mohit3',   # Replace with your database username
+            password='sofwaq-fyctes-8gYvze',  # Replace with your database password
+            database='u791720918_temp_stock'  # Replace with your database name
+        )
+
+        if connection.is_connected():
+            # print("Successfully connected to the database")
+            cursor = connection.cursor()
+
+            # Get yesterday's date
+            yesterday = datetime.now() - timedelta(days=1)
+            yesterday_date = yesterday.strftime('%Y-%m-%d')
+
+            # Check if yesterday is a weekend (Saturday or Sunday)
+            if yesterday.weekday() in [5, 6]:  # Saturday = 5, Sunday = 6
+                # Get the previous Friday's date
+                days_to_friday = yesterday.weekday() - 4
+                friday_date = (yesterday - timedelta(days=days_to_friday)).strftime('%Y-%m-%d')
+            else:
+                friday_date = None  # Not a weekend, no need to check Friday
+
+            # print("yesterday date",yesterday_date)
+
+            # Prepare and execute the query for yesterday
+            query = "SELECT low FROM yesterday_low WHERE date = %s"
+            cursor.execute(query, (yesterday_date,))
+            result = cursor.fetchone()
+
+            # If yesterday's low is found, return it
+            if result:
+                # print(f"Low value found for {yesterday_date}: {result[0]}")
+                return result[0]
+
+            # If yesterday's low is not found, check Friday (if applicable)
+            if friday_date:
+                cursor.execute(query, (friday_date,))
+                result = cursor.fetchone()
+                if result:
+                    # print(f"Low value found for {friday_date}: {result[0]}")
+                    return result[0]
+
+            # If neither date has a low value
+            print("get_yesterday_low trigger ")
+            return get_yesterday_low()
+
+    except Error as e:
+        print(f"Error while connecting to MySQL: {e}")
+        return None
+
+    finally:
+        # Close cursor and connection if they were initialized
+        if cursor is not None:
+            cursor.close()
+            # print("Cursor closed.")
+        if connection is not None and connection.is_connected():
+            connection.close()
+            # print("MySQL connection closed.")
+
+
+
+
+
+
+
 def get_yesterday_low():
     # Verify SSL availability
     try:
@@ -39,88 +175,28 @@ def get_yesterday_low():
         data = alice.get_historical(token, from_date, to_date, interval='1', indices=True)
         # print("low values is ",min(data['low']))
         # print("Go to update_csv_with_yesterday_data function  ")
-        update_csv_with_yesterday_data(min(data['low']))
+        yesterday_date = (datetime.now() - timedelta(days=1)).date()
+        print(yesterday_date,min(data['low']))
+
+        print("save_yesterday_low trigger ")
+
+        save_yesterday_low(yesterday_date,min(data['low']))
         # return (min(data['low']))
     
-    except Exception as e:
-        return 0
-        
-
-
-# check if the data is exist in the CSV file or not 
-def analyze_csv():
-    try:
-        # Read the CSV file
-        df = pd.read_csv("/Users/mohitkumar/Downloads/Php Project/yesterday_data.csv")
-        yesterday = datetime.now() - timedelta(days=1)
-        # Format the date if needed (e.g., for printing or API calls)
-        yesterday_formatted = yesterday.strftime('%Y-%m-%d')
-        # Check if yesterday was Saturday or Sunday
-        if yesterday.strftime('%a') in ['Sat', 'Sun']:
-            # If yes, move back to the last Friday
-            days_to_subtract = (yesterday.weekday() - 4) % 7
-            yesterday = yesterday - timedelta(days=days_to_subtract)
-        # Format the date if needed
-        yesterday_formatted = yesterday.strftime('%Y-%m-%d')
-        # Check unique values and types for each column
-        for col in df.columns:
-            if col == "date":
-    # Filter rows where the 'date' matches yesterday's formatted date
-                yesterday_rows = df[df[col] == yesterday_formatted]
-                if not yesterday_rows.empty:
-                    # Find the minimum value in the 'low' column for the matching rows
-                    float_value = yesterday_rows['low'].min()
-                    # print("Yesterday's lowest value is:", float_value)
-                    return float_value
-                    break
-
-                else:
-                    # print("Go to get_yesterday_low function  ")
-                    return get_yesterday_low() # all the function to get the value of yesterday low
-
-    except FileNotFoundError:
-        print("file not found")
-        return get_yesterday_low()
-
-
-def update_csv_with_yesterday_data(yesterday_low_value):
-    try:
-        # File path
-        file_path = "/Users/mohitkumar/Downloads/Php Project/yesterday_data.csv"
-
-        # Check if the file exists
-        if os.path.exists(file_path):
-            # Read the CSV file
-            df = pd.read_csv(file_path)
-        else:
-            # Create an empty DataFrame if the file does not exist
-            df = pd.DataFrame(columns=["date", "low"])
-
-        # Get yesterday's date
-        yesterday = datetime.now() - timedelta(days=1)
-        yesterday_formatted = yesterday.strftime('%Y-%m-%d')
-
-        # Remove any existing rows with yesterday's date
-        df = df[df["date"] != yesterday_formatted]
-
-        # Add new row with yesterday's date and low value
-        new_row = pd.DataFrame({"date": [yesterday_formatted], "low": [yesterday_low_value]})
-        df = pd.concat([df, new_row], ignore_index=True)
-
-        # Save the updated DataFrame back to the CSV
-        df.to_csv(file_path, index=False)
-        # print(f"Replaced/Updated CSV with yesterday's data: {new_row.to_dict(orient='records')[0]}")
-        # print(" go to again analyze_csv for update the shete ")
-        return analyze_csv()
 
     except Exception as e:
         return 0
-        
+    
+
+
+
+
+
 
 def yesterday_lowest_market_value():
-    analyze_csv()
-    temp=analyze_csv()
+    get_low_for_yesterday_or_friday()
+    temp=get_low_for_yesterday_or_friday()
     if temp is not None:
         return(temp)
     
-yesterday_lowest_market_value()
+# print(yesterday_lowest_market_value())
