@@ -18,21 +18,22 @@ api_key = "Z7PigAB8aqzbupeF32NaqM7DysmojljIUTK1754cb2M2vQLxePl0Rnscuz2p5uaaJPeXB
 alice = Aliceblue(username, api_key)
 session_id = alice.get_session_id()['sessionID']
 
-def place_order(symbol):
-                print(alice.place_order(transaction_type = TransactionType.Buy, 
+
+def place_order(symbol,Quantity):
+                order_check=(alice.place_order(transaction_type = TransactionType.Buy, 
                     instrument = alice.get_instrument_by_symbol("NFO", symbol), 
-                    quantity = 150,
+                    quantity = Quantity,
                     order_type = OrderType.Market, 
                     product_type = ProductType.Intraday))
-    
+                print(order_check)
                 return "Success"
 
 
 
-def sell_order(symbol):
+def sell_order(symbol,Quantity):
     print(alice.place_order(transaction_type = TransactionType.Sell, 
                             instrument = alice.get_instrument_by_symbol("NFO", symbol), 
-                            quantity = 150,
+                            quantity = Quantity,
                             order_type = OrderType.Market, 
                             product_type = ProductType.Intraday))
     
@@ -40,7 +41,7 @@ def sell_order(symbol):
 
 
 
-# print(place_order("NIFTY09JAn25C24150"))
+# print(place_order("NIFTY09JAn25C24150",600))
 
 
 
