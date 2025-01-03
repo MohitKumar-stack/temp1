@@ -55,8 +55,9 @@ afternoon_end = datetime.strptime("15:31:00", "%H:%M:%S").time()
 
 # Variables for specific LTP times
 global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115 ,LTP_at_130, nifty_low, nifty_high,nifty_open,nifty_price
-global strike_rate, expiry_date,option_type,option_chain_price
+global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
 strike_rate, expiry_date,option_type,option_chain_price=0,0,0,0
+total_call_quality,total_put_quality=0,0
 option_type =[]
 LTP_at_930 = LTP_at_10 = LTP_at_1015 = LTP_at_1030 = LTP_at_1230 = LTP_at_1 = LTP_at_115 = LTP_at_130 = 0
 
@@ -91,7 +92,7 @@ def get_next_to_next_thursday():
 
 def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low,nifty_high,nifty_open): 
 
-    global strike_rate, expiry_date,option_type,option_chain_price
+    global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
     global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115 ,LTP_at_130
    
     if order_value_checker==0: #check for first time investement for the day (H1 or H2)
@@ -164,7 +165,12 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
 
 
             if len(ls)!=0:
-                # trigger order place code 
+                # trigger order place code
+                if option_type== 'C':
+                    total_call_quality=600
+                elif option_type== 'P':
+                    total_put_quality=600
+
                 Quantity=600
                 place_order(f"NIFTY{expiry_date}{option_type}{strike_rate}",Quantity)  # call place_order function
                 print("ALLL Success Full")
@@ -182,6 +188,12 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
        # this function can be run on 15 min or 30 min condtions
     elif option_chain_price!=0 and strike_rate!=0 and expiry_date!=0 and order_value_checker>0:
         Quantity=300
+
+        if option_type== 'C':
+            total_call_quality=total_call_quality+300
+        elif option_type== 'P':
+            total_put_quality=total_put_quality+300
+
         place_order(f"NIFTY{expiry_date}{Instrument}{strike_rate}",Quantity)  # call place_order function
         print("ALLL Success Full")
         save_trigger_data(
@@ -202,12 +214,14 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
 # check profit all the time 
 
 def profit_loss_tracker():
-    global strike_rate, expiry_date,option_type,option_chain_price
+    global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
+
 
     new_price=get_last_trade_price(strike_rate, expiry_date,option_type)
     if new_price-option_chain_price>=15:
-        Quantity=300
-        sell_order(f"NIFTY{expiry_date}{option_type}{strike_rate}",Quantity)
+        sell_order(f"NIFTY{expiry_date}{option_type}{strike_rate}",total_call_quality)
+        sell_order(f"NIFTY{expiry_date}{option_type}{strike_rate}",total_put_quality)
+
     
     return
     
@@ -348,7 +362,7 @@ def save_trigger_data(
 # Fetch real-time data for NIFTY50 and implement logic
 def fetch_nifty_data():
 
-    global strike_rate
+    global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
     if strike_rate>0:   #check for if any Buying happend or not and profit/Loss trakcer
         profit_loss_tracker()
 
@@ -494,6 +508,7 @@ def fetch_nifty_data():
 
     # condtion check at 1 PM CALL 
         if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:00:59", "%H:%M:%S").time():
+            strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
             if  (Decimal(nifty_high) - Decimal(nifty_open) > 75) and (Decimal(nifty_open) - Decimal(nifty_low)) < 75 and Decimal(nifty_low) > Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) > 5:
                 print("H1 call morning start-end time varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_price, 'C',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
@@ -533,6 +548,7 @@ def fetch_nifty_data():
         #condtion check at 1 PM PUT 
 
         if current_time <= datetime.strptime("10:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:00:59", "%H:%M:%S").time():
+            strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
             if (Decimal(nifty_high) - Decimal(nifty_open) < 75) and (Decimal(nifty_open) - Decimal(nifty_low)) >75 and (LTP_at_10 - LTP_at_930) < 5:
                 print("H2 put afternoon varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_price, 'P',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
