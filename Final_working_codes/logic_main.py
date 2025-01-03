@@ -89,8 +89,7 @@ def get_next_to_next_thursday():
 
 
 def get_strikes_and_expiry(nifty_price, option_type,strike_rate,nifty_low,nifty_high,nifty_open): 
-    global expiry_date 
-    if strike_rate==0 and expiry_date==0: #check for first time investement for the day (H1 or H2)
+    if strike_rate==0: #check for first time investement for the day (H1 or H2)
         ls=[]
         temp=0
         expiry_date = get_next_to_next_thursday()  # Calculate the next-to-next expiry date (Thursday)
@@ -108,7 +107,7 @@ def get_strikes_and_expiry(nifty_price, option_type,strike_rate,nifty_low,nifty_
             for i in forward_strikes:
                 temp=get_last_trade_price(i, expiry_date,option_type)
                 # print(temp)
-                if 94<=temp<=106:
+                if 94<=temp<=104:
                     ls.append(temp)
                     if strike_rate==0:
                         strike_rate=i
