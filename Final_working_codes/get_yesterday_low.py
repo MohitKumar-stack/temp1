@@ -199,4 +199,4 @@ def yesterday_lowest_market_value():
     if temp is not None:
         return(temp)
     
-# print(yesterday_lowest_market_value())
+print(yesterday_lowest_market_value())
