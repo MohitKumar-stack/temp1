@@ -64,6 +64,7 @@ def save_yesterday_low(date, low):
 
 
 def get_low_for_yesterday_or_friday():
+    
     """
     Fetch the low value from the 'yesterday_low' table for:
     - Yesterday's date if it exists in the table
@@ -199,4 +200,4 @@ def yesterday_lowest_market_value():
     if temp is not None:
         return(temp)
     
-print(yesterday_lowest_market_value())
+# print(yesterday_lowest_market_value())
