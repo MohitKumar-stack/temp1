@@ -94,7 +94,7 @@ def get_low_for_yesterday_or_friday():
 
             # If yesterday's low is found, return it
             if result:
-                print(f"Low value found for {yesterday_date}: {result[0]}")
+                # print(f"Low value found for {yesterday_date}: {result[0]}")
                 return result[0]
 
             # If yesterday's low is not found, check Friday (if applicable)
@@ -102,7 +102,7 @@ def get_low_for_yesterday_or_friday():
                 cursor.execute(query, (friday_date,))
                 result = cursor.fetchone()
                 if result:
-                    print(f"Low value found for {friday_date}: {result[0]}")
+                    # print(f"Low value found for {friday_date}: {result[0]}")
                     return result[0]
 
             # If neither date has a low value
@@ -237,4 +237,4 @@ def yesterday_lowest_market_value():
     if temp is not None:
         return(temp)
     
-print(yesterday_lowest_market_value())
+# print(yesterday_lowest_market_value())
