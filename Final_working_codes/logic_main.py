@@ -195,7 +195,6 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
         if option_chain_price!=0 and strike_rate!=0 and expiry_date!=0 and order_value_checker>0:
             Quantity=300
             print("enbtered in else condions of ")
-
             if Instrument== 'C':
                 total_call_quality=total_call_quality+300
             elif Instrument== 'P':
@@ -218,19 +217,30 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
 # check profit all the time 
 
 def profit_loss_tracker():
-    # global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
+    global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
 
-
-    new_price=get_last_trade_price(strike_rate, expiry_date,option_type)
-    if new_price-option_chain_price>=15:
-        sell_order(f"NIFTY{expiry_date}{option_type}{strike_rate}",total_call_quality)
-        sell_order(f"NIFTY{expiry_date}{option_type}{strike_rate}",total_put_quality)
-
+    if len(option_type)==1:    # for ideal condition 
+        new_price=get_last_trade_price(strike_rate, expiry_date,option_type[0])
+        if abs(new_price-option_chain_price)>=15:
+                if option_type[0]=="C":
+                    sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_call_quality)
+                if option_type[0]=="P":
+                    sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_put_quality)
     
+    elif len(option_type)>1:
+        unique_values = list(set(option_type))
+        if len(unique_values)==1 and unique_values[0]=="C":
+            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_call_quality)
+        elif len(unique_values)==1 and unique_values[0]=="P":
+            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_put_quality)
+
+        elif len(unique_values)==2:
+            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_call_quality)
+            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_put_quality)
+            return None
+
     return None
     
-    
-
 
 
 # function to get the last trade price of option_chain
@@ -370,8 +380,8 @@ def fetch_nifty_data():
     print(" recvive eretun to nifty function back ")
     print("strike rate value ", strike_rate)
 
-    # if strike_rate>0:   #check for if any Buying happend or not and profit/Loss trakcer
-    #     profit_loss_tracker()
+    if strike_rate>0:   #check for if any Buying happend or not and profit/Loss trakcer
+        profit_loss_tracker()
 
 
     try:
@@ -405,30 +415,30 @@ def fetch_nifty_data():
 
 #  chcking price at specific time and showing it
         try:
-            if current_time >= datetime.strptime("09:30:00", "%H:%M:%S").time() and current_time < (datetime.strptime("09:30:01", "%H:%M:%S").time()) and LTP_at_930 == 0:
+            if current_time >= datetime.strptime("09:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("09:30:01", "%H:%M:%S").time()) and LTP_at_930 == 0:
                 LTP_at_930 = nifty_price
-            elif current_time >= datetime.strptime("10:00:00", "%H:%M:%S").time() and current_time < (datetime.strptime("10:00:01", "%H:%M:%S").time())   and LTP_at_10 == 0:  
+            elif current_time >= datetime.strptime("10:00:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("10:00:01", "%H:%M:%S").time())   and LTP_at_10 == 0:  
                 LTP_at_10 = nifty_price
-            elif current_time >= datetime.strptime("10:15:00", "%H:%M:%S").time() and current_time < (datetime.strptime("10:15:01", "%H:%M:%S").time()) and LTP_at_1015 == 0:
+            elif current_time >= datetime.strptime("10:15:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("10:15:01", "%H:%M:%S").time()) and LTP_at_1015 == 0:
                 LTP_at_1015 = nifty_price
-            elif current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time < (datetime.strptime("10:30:01", "%H:%M:%S").time()) and LTP_at_1030 == 0:
+            elif current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("10:30:01", "%H:%M:%S").time()) and LTP_at_1030 == 0:
                 LTP_at_1030 = nifty_price
-            elif current_time >= datetime.strptime("12:30:00", "%H:%M:%S").time() and current_time < (datetime.strptime("12:30:01", "%H:%M:%S").time()) and LTP_at_1230 == 0:
+            elif current_time >= datetime.strptime("12:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("12:30:01", "%H:%M:%S").time()) and LTP_at_1230 == 0:
                 LTP_at_1230 = nifty_price
-            elif current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time < (datetime.strptime("13:00:01", "%H:%M:%S").time()) and LTP_at_1 == 0:
+            elif current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <=(datetime.strptime("13:00:01", "%H:%M:%S").time()) and LTP_at_1 == 0:
                 LTP_at_1 = nifty_price
-            elif current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time < (datetime.strptime("13:15:01", "%H:%M:%S").time()) and LTP_at_115 == 0:
+            elif current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("13:15:01", "%H:%M:%S").time()) and LTP_at_115 == 0:
                 LTP_at_115 = nifty_price    
-            elif current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time < (datetime.strptime("13:30:01", "%H:%M:%S").time()) and LTP_at_130 == 0:
+            elif current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("13:30:01", "%H:%M:%S").time()) and LTP_at_130 == 0:
                 LTP_at_130 = nifty_price
 
         except Exception as e:
             print(f"Error storing LTP values: {e}")
 
-        LTP_at_930=24035.10
-        LTP_at_10=23942
-        LTP_at_1015=24028
-        LTP_at_1030=23964.75
+        # LTP_at_930=24035.10
+        # LTP_at_10=23942
+        # LTP_at_1015=24028
+        # LTP_at_1030=23964.75
         
 
         print("at 9:30", LTP_at_930)

@@ -2,6 +2,7 @@ from alice_blue import  TransactionType, OrderType, ProductType
 import pandas as pd
 from pya3 import *
 import ssl
+import time as t
 
 
 try:
@@ -31,11 +32,14 @@ def place_order(symbol,Quantity):
 
 
 def sell_order(symbol,Quantity):
-    print(alice.place_order(transaction_type = TransactionType.Sell, 
+    order_check =alice.place_order(transaction_type = TransactionType.Sell, 
                             instrument = alice.get_instrument_by_symbol("NFO", symbol), 
                             quantity = Quantity,
                             order_type = OrderType.Market, 
-                            product_type = ProductType.Intraday))
+                            product_type = ProductType.Intraday)
+    print(order_check)
+    t.sleep(60)
+    return "Success"
     
     
 
