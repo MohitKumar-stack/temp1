@@ -225,22 +225,24 @@ def profit_loss_tracker():
                 if option_type[0]=="C":
                     sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_call_quality)
                 if option_type[0]=="P":
-                    sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_put_quality)
+                   sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_put_quality)
     
     elif len(option_type)>1:
-        unique_values = list(set(option_type))
-        if len(unique_values)==1 and unique_values[0]=="C":
-            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_call_quality)
-        elif len(unique_values)==1 and unique_values[0]=="P":
-            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_put_quality)
+        if (current_time >= datetime.strptime("11:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:30:59", "%H:%M:%S").time())) or (current_time >= datetime.strptime("14:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:30:59", "%H:%M:%S").time())):
+            unique_values = list(set(option_type))
+            if len(unique_values)==1 and unique_values[0]=="C":
+                sell_order(f"NIFTY{expiry_date}C{strike_rate}",total_call_quality)
+            elif len(unique_values)==1 and unique_values[0]=="P":
+                sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality)
 
-        elif len(unique_values)==2:
-            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_call_quality)
-            sell_order(f"NIFTY{expiry_date}{unique_values[0]}{strike_rate}",total_put_quality)
-            return None
+            elif len(unique_values)==2:
+                sell_order(f"NIFTY{expiry_date}C{strike_rate}",total_call_quality)
+                sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality)
+                return None
 
     return None
     
+
 
 
 # function to get the last trade price of option_chain
