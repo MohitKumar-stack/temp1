@@ -379,8 +379,8 @@ def save_trigger_data(
 def fetch_nifty_data():
 
     global strike_rate
-    print(" recvive eretun to nifty function back ")
-    print("strike rate value ", strike_rate)
+    # print(" recvive eretun to nifty function back ")
+    # print("strike rate value ", strike_rate)
 
     if strike_rate>0:   #check for if any Buying happend or not and profit/Loss trakcer
         profit_loss_tracker()
