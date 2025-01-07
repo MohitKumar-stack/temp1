@@ -98,9 +98,10 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
    
     ls=[]
     temp=0
+
     if order_value_checker==0: #check for first time investement for the day (H1 or H2)
         
-        if order_value_checker==0 and strike_rate==0 and expiry_date==0:
+        if len(option_type)==0 and strike_rate==0 and expiry_date==0:
             print("varied first if in get_strikes_and_expiry entered  ")
              # check expiry_date is blank or have values
             expiry_date = get_next_to_next_thursday()  # Calculate the next-to-next expiry date (Thursday)
@@ -111,13 +112,12 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
             # Generate a list of 5 backward and 5 forward strike prices
             backward_strikes = [int(nearest_strike - (i * 50)) for i in range(1, 6)][::-1]  # 5 backward strikes as floats
             forward_strikes = [int(nearest_strike + (i * 50)) for i in range(1, 6)]  # 5 forward strikes as floats
-            print("backward_strikes",backward_strikes)
-            print("forward_strikes",forward_strikes)
+           
 
             if Instrument == 'C':
                 print(f"CALL Strike Prices (5 forward): {forward_strikes}")
                 for i in forward_strikes:
-                    temp=get_last_trade_price(i, expiry_date,Instrument)
+                    temp=get_last_trade_price(i,expiry_date,Instrument)
                     # print(temp)
                     if 94<=float(temp)<=104:
                         ls.append(temp)
@@ -127,8 +127,6 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
                         break # break the loop after getting the first value
                     
             elif Instrument == 'P':
-                print("varied first if in get_strikes_and_expiry entered  ")
-
                 print(f"PUT Strike Prices (5 backward): {backward_strikes}")
                 for i in forward_strikes:
                     temp=(get_last_trade_price(i, expiry_date,Instrument))
@@ -145,7 +143,6 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
                     print(f"CALL Strike Prices (5 forward): {forward_strikes}")
                     for i in forward_strikes:
                         temp=get_last_trade_price(i, expiry_date,Instrument)
-                        # print(temp)
                         if 91<=float(temp)<=109:
                             ls.append(temp)
                             option_chain_price=temp
@@ -166,7 +163,6 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
 
 
             if len(ls)!=0:
-                # trigger order place code
                 print(" Stike rate is " ,strike_rate)
                 if Instrument== 'C':
                     total_call_quality=600
@@ -174,6 +170,7 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
                     total_put_quality=600
 
                 Quantity=600
+                
                 place_order(f"NIFTY{expiry_date}{Instrument}{strike_rate}",Quantity)  # call place_order function
                 print("ALLL Success Full")
                 save_trigger_data(
@@ -187,14 +184,14 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
                 return None 
             
 
-    if order_value_checker>0:
+    elif order_value_checker>0:
        # this function can be run on 15 min or 30 min condtions
-        if order_value_checker!=0 and strike_rate!=0 and expiry_date!=0 and order_value_checker>0:
+        if len(option_type)!=0 and strike_rate!=0 and expiry_date!=0:
             Quantity=300
             print("enbtered in else condions of ")
-            if Instrument== 'C':
+            if Instrument=='C':
                 total_call_quality=total_call_quality+300
-            elif Instrument== 'P':
+            elif Instrument=='P':
                 total_put_quality=total_put_quality+300
 
             place_order(f"NIFTY{expiry_date}{Instrument}{strike_rate}",Quantity)  # call place_order function
@@ -380,7 +377,7 @@ def save_trigger_data(
 
 # Fetch real-time data for NIFTY50 and implement logic
 def fetch_nifty_data():
-
+   # defining global variables  
     global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130
     global strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality
     global nifty_low, nifty_high,nifty_open,nifty_price
