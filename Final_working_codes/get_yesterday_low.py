@@ -53,9 +53,6 @@ def save_yesterday_low(date, low):
 
 
 
-
-
-
 def get_low_for_yesterday_or_friday():
     connection = None  # Initialize connection as None
     cursor = None  # Initialize cursor as None
@@ -123,61 +120,6 @@ def get_low_for_yesterday_or_friday():
             # print("MySQL connection closed.")
 
 
-
-
-
-
-
-# def get_yesterday_low():
-#     # Verify SSL availability
-#     try:
-#         ssl.PROTOCOL_TLS
-#     except AttributeError:
-#         raise ImportError("SSL module is not available. Please ensure your Python environment supports SSL.")
-
-#     # Credentials
-#     username = "1721033"
-#     api_key = "Z7PigAB8aqzbupeF32NaqM7DysmojljIUTK1754cb2M2vQLxePl0Rnscuz2p5uaaJPeXBJcVGQrHXENy1rB1sEEF7Yq0JZ02D8KkCcq5OlC3EknP6N0IkvzGo1DPbUas"
-
-#     # Initialize Aliceblue session
-#     try:
-#         alice = Aliceblue(username, api_key)
-#         session_id = alice.get_session_id().get('sessionID', None)
-#     except Exception as e:
-#         raise ConnectionError(f"Error initializing Aliceblue session: {e}")
-
-#     # Set date range for fetching data (use datetime objects)
-#     from_date = (datetime.now() - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-#     to_date = (datetime.now() - timedelta(days=1)).replace(hour=23, minute=59, second=59, microsecond=999999)
-    
-
-#     exchange = "NSE"
-#     spot_symbol = "NIFTY 50"
-
-#     # Check if data for yesterday already exists in the CSV file
-#     yesterday_date_str = to_date.strftime('%Y-%m-%d')
-#     # Fetch historical data
-#     try:
-#         token = alice.get_instrument_by_symbol(exchange, spot_symbol)
-#         data = alice.get_historical(token, from_date, to_date, interval='1', indices=True)
-#         # print("low values is ",min(data['low']))
-#         # print("Go to update_csv_with_yesterday_data function  ")
-#         yesterday_date = (datetime.now() - timedelta(days=1)).date()
-#         # print(yesterday_date,min(data['low']))
-
-#         # print("save_yesterday_low trigger ")
-
-#         save_yesterday_low(yesterday_date,min(data['low']))
-#         # return (min(data['low']))
-    
-
-#     except Exception as e:
-#         return 0
-    
-
-
-
-
 from datetime import datetime, timedelta
 import ssl
 
@@ -227,7 +169,6 @@ def get_yesterday_low():
         save_yesterday_low(save_date, min(data['low']))
     except Exception as e:
         return 0
-
 
 
 
