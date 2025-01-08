@@ -27,6 +27,7 @@ def place_order(symbol,Quantity):
                     order_type = OrderType.Market, 
                     product_type = ProductType.Intraday))
                 print(order_check)
+                t.sleep(5)
                 return "Success"
 
 
@@ -38,7 +39,7 @@ def sell_order(symbol,Quantity):
                             order_type = OrderType.Market, 
                             product_type = ProductType.Intraday)
     print(order_check)
-    t.sleep(30)
+    t.sleep(5)
     return "Success"
     
     
