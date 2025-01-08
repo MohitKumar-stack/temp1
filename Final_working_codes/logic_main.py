@@ -449,14 +449,14 @@ def fetch_nifty_data():
 
     # condtion check at 10 AM CALL 
         if current_time >= datetime.strptime("10:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:00:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) > 75.0 and (nifty_open - nifty_low) < 75.0 and nifty_low > Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) > 5.0:  #analyze_csv()) for getting last day low price
+            if (nifty_high - nifty_open) > 75.0 and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 5.0:  #analyze_csv()) for getting last day low price
                 print("H1 call morning start-end time varifyed at 10 AM")
                 get_strikes_and_expiry(nifty_price,'C',0,nifty_low,nifty_high,nifty_open)
     
     # condtion check at 10:15 AM CALL 
                     
         if current_time >= datetime.strptime("10:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:15:59", "%H:%M:%S").time():
-            if (nifty_high- nifty_open) > 75.0  and (nifty_open- nifty_low) < 75.0 and nifty_low > Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) > 5.0 and (LTP_at_1015 - LTP_at_10) > 0.0:
+            if (nifty_high- nifty_open) > 75.0  and (nifty_open- nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 5.0 and (LTP_at_1015 - LTP_at_10) > 0.0:
                 pass # no action at this stage only buy put for safety
                 # print("H1 call morning start-end time varifyed at 10:15 AM")
                 # get_strikes_and_expiry(nifty_price, 'C',strike_rate)
@@ -468,7 +468,7 @@ def fetch_nifty_data():
     # condtion check at 10:30 AM CALL 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:30:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) > 5.0 and (LTP_at_1030 - LTP_at_10) > 3.0:
+            if (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 5.0 and (LTP_at_1030 - LTP_at_10) > 3.0:
                 print("H1 call morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_price,'C',2,nifty_low,nifty_high,nifty_open)
             
@@ -483,7 +483,7 @@ def fetch_nifty_data():
         #condtion check at 10 AM PUT 
 
         if current_time >= datetime.strptime("10:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:00:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) < -5.0:
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < yesterday_low and (LTP_at_10 - LTP_at_930) < -5.0:
                 print("H1 put morning start-end time varifyed at 10 AM")
                 get_strikes_and_expiry(nifty_price,'P',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
 
@@ -492,7 +492,7 @@ def fetch_nifty_data():
         #condtion check at 10:15 AM PUT  
         
         if current_time >= datetime.strptime("10:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:15:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) < -5.0 and (LTP_at_1015 - LTP_at_10) < -5.0 :
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < yesterday_low and (LTP_at_10 - LTP_at_930) < -5.0 and (LTP_at_1015 - LTP_at_10) < -5.0 :
                     pass #no nuing at this point for now 
                     # print("H1 put morning start-end time varifyed at 10:15 AM")
                     # get_strikes_and_expiry(nifty_price, 'P',strike_rate)       
@@ -504,7 +504,7 @@ def fetch_nifty_data():
 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:30:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < Decimal(yesterday_low) and (LTP_at_10 - LTP_at_930) < -5.0 and (LTP_at_1030 - LTP_at_10) < -3.0:
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < yesterday_low and (LTP_at_10 - LTP_at_930) < -5.0 and (LTP_at_1030 - LTP_at_10) < -3.0:
                 print("H1 put morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_price,'P',2,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
      
@@ -522,7 +522,7 @@ def fetch_nifty_data():
         if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:00:59", "%H:%M:%S").time():
             # strike_rate, expiry_date,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
             # option_type=[]
-            if  (nifty_high - nifty_open)> 75.0 and (nifty_open - nifty_low)< 75.0 and nifty_low > Decimal(yesterday_low) and (LTP_at_1 - LTP_at_1230) > 5.0:
+            if  (nifty_high - nifty_open)> 75.0 and (nifty_open - nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 5.0:
                 print("H1 call morning start-end time varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_price,'C',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
 
@@ -531,7 +531,7 @@ def fetch_nifty_data():
     #condtion check at 1:15 PM CALl
 
         if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:15:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > Decimal(yesterday_low) and (LTP_at_1- LTP_at_1230) > 5.0 and (LTP_at_1 - LTP_at_115) > 0.0:
+            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1- LTP_at_1230) > 5.0 and (LTP_at_1 - LTP_at_115) > 0.0:
                 pass # no buing at this stage 
                 # print("H1 call morning start-end time varifyed at 1:15 PM")
                 # get_strikes_and_expiry(nifty_price, 'C',strike_rate)
@@ -543,7 +543,7 @@ def fetch_nifty_data():
     #condtion check at 1:30 PM CALL 
                        
         if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:30:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > Decimal(yesterday_low) and (LTP_at_1 - LTP_at_1230) > 5.0 and (LTP_at_130- LTP_at_1) > 3.0:
+            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 5.0 and (LTP_at_130- LTP_at_1) > 3.0:
                 print("H1 call morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_price,'C',2,nifty_low,nifty_high,nifty_open) # 0 for strike rate 
 
@@ -561,7 +561,7 @@ def fetch_nifty_data():
         #condtion check at 1 PM PUT 
 
         if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:00:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < Decimal(yesterday_low) and (LTP_at_1 - LTP_at_1230) < -5.0:
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < yesterday_low and (LTP_at_1 - LTP_at_1230) < -5.0:
                 print("H2 put afternoon varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_price, 'P',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
 
@@ -570,7 +570,7 @@ def fetch_nifty_data():
         #condtion check at 1:15 PM PUT 
         
         if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:15:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < Decimal(yesterday_low) and (LTP_at_1- LTP_at_1230) < -5.0 and (LTP_at_115- LTP_at_1) < -5.0 :
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_low < yesterday_low and (LTP_at_1- LTP_at_1230) < -5.0 and (LTP_at_115- LTP_at_1) < -5.0 :
                 pass # no buing at this point 
                 #  print("H2 put afternoon varifyed at 1:15 PM")
                 # get_strikes_and_expiry(nifty_price, 'P',strike_rate)       
@@ -582,7 +582,7 @@ def fetch_nifty_data():
 
 
         if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:30:59", "%H:%M:%S").time():
-            if (nifty_high - nifty_open)< 75.0 and (nifty_open- nifty_low) >75.0 and nifty_low < Decimal(yesterday_low) and (LTP_at_1 - LTP_at_1230) < -5.0 and (LTP_at_130 - LTP_at_1) < -3.0:
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0 and nifty_low < yesterday_low and (LTP_at_1 - LTP_at_1230) < -5.0 and (LTP_at_130 - LTP_at_1) < -3.0:
                 print("H1 put morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_price,'P',2,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
       

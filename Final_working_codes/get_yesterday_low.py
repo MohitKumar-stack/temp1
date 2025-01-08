@@ -179,3 +179,4 @@ def yesterday_lowest_market_value():
         return(temp)
     
 # print(yesterday_lowest_market_value())
+# print(type(yesterday_lowest_market_value()))
