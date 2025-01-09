@@ -7,7 +7,7 @@ import ssl
 
 
 
-def save_yesterday_low(date, low):
+def save_yesterday_high(date, high):
     connection = None  # Initialize connection as None
     cursor = None  # Initialize cursor as None
     try:
@@ -24,8 +24,8 @@ def save_yesterday_low(date, low):
             # print("Successfully connected to the database")
             
             # Prepare the SQL query
-            query = "INSERT INTO yesterday_low (date, low) VALUES (%s, %s)"
-            data = (date, low)
+            query = "INSERT INTO yesterday_high (date, high) VALUES (%s, %s)"
+            data = (date, high)
 
             # Execute the query
             cursor = connection.cursor()
@@ -45,7 +45,7 @@ def save_yesterday_low(date, low):
             # print("Cursor closed.")
         if connection is not None and connection.is_connected():
             connection.close()
-            get_low_for_yesterday_or_friday()
+            get_high_for_yesterday_or_friday()
             # print("MySQL connection closed.")
 
 # Example usage
@@ -53,7 +53,7 @@ def save_yesterday_low(date, low):
 
 
 
-def get_low_for_yesterday_or_friday():
+def get_high_for_yesterday_or_friday():
     connection = None  # Initialize connection as None
     cursor = None  # Initialize cursor as None
     try:
@@ -85,7 +85,7 @@ def get_low_for_yesterday_or_friday():
             # print("yesterday date",yesterday_date)
 
             # Prepare and execute the query for yesterday
-            query = "SELECT low FROM yesterday_low WHERE date = %s"
+            query = "SELECT high FROM yesterday_high WHERE date = %s"
             cursor.execute(query, (yesterday_date,))
             result = cursor.fetchone()
 
@@ -104,7 +104,7 @@ def get_low_for_yesterday_or_friday():
 
             # If neither date has a low value
             # print("get_yesterday_low trigger ")
-            return get_yesterday_low()
+            return get_yesterday_high()
 
     except Error as e:
         print(f"Error while connecting to MySQL: {e}")
@@ -122,7 +122,7 @@ def get_low_for_yesterday_or_friday():
 
 
 
-def get_yesterday_low():
+def get_yesterday_high():
     # Verify SSL availability
     try:
         ssl.PROTOCOL_TLS
@@ -164,17 +164,17 @@ def get_yesterday_low():
         # Determine the correct date to save
         save_date = from_date.date()
         
-        save_yesterday_low(save_date, min(data['low']))
+        save_yesterday_high(save_date, max(data['low']))
     except Exception as e:
         return 0
 
 
 
-def yesterday_lowest_market_value():
-    t=get_low_for_yesterday_or_friday()
-    temp=get_low_for_yesterday_or_friday()
+def yesterday_highest_market_value():
+    t=get_high_for_yesterday_or_friday()
+    temp=get_high_for_yesterday_or_friday()
     if temp is not None:
         return(temp)
     
-# print(yesterday_lowest_market_value())
-# print(type(yesterday_lowest_market_value()))
+# print(yesterday_highest_market_value())
+# print(type(yesterday_highest_market_value()))
