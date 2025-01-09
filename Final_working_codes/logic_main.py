@@ -19,8 +19,9 @@ from get_yesterday_high import yesterday_highest_market_value
 
 # Call the key_genrater function to get the each_code
 key_genrater()  # for key_genrater function
-# Call the get_yesterday_low function to get the yesterday low
 
+# Call the get_yesterday_low function to get the yesterday low 
+# Call the get_yesterday_high function to get the yesterday high 
 global yesterday_low,yesterday_high
 yesterday_low=yesterday_lowest_market_value()
 yesterday_high=yesterday_highest_market_value()

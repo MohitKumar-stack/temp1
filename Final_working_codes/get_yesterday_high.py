@@ -32,7 +32,7 @@ def save_yesterday_high(date, high):
             cursor.execute(query, data)
             connection.commit()  # Commit the transaction
             
-            # print(f"Data inserted: Date={date}, Low={low}")
+            # print(f"Data inserted: Date={date}, high={high}")
 
     except Error as e:
         pass
@@ -49,7 +49,7 @@ def save_yesterday_high(date, high):
             # print("MySQL connection closed.")
 
 # Example usage
-# save_yesterday_low("2025-01-02", 3443.4)  # Replace with your actual date and low value
+# save_yesterday_high("2025-01-02", 3443.4)  # Replace with your actual date and high value
 
 
 
@@ -89,21 +89,21 @@ def get_high_for_yesterday_or_friday():
             cursor.execute(query, (yesterday_date,))
             result = cursor.fetchone()
 
-            # If yesterday's low is found, return it
+            # If yesterday's high is found, return it
             if result:
-                # print(f"Low value found for {yesterday_date}: {result[0]}")
+                # print(f"high value found for {yesterday_date}: {result[0]}")
                 return result[0]
 
-            # If yesterday's low is not found, check Friday (if applicable)
+            # If yesterday's high is not found, check Friday (if applicable)
             if friday_date:
                 cursor.execute(query, (friday_date,))
                 result = cursor.fetchone()
                 if result:
-                    # print(f"Low value found for {friday_date}: {result[0]}")
+                    # print(f"high value found for {friday_date}: {result[0]}")
                     return result[0]
 
-            # If neither date has a low value
-            # print("get_yesterday_low trigger ")
+            # If neither date has a high value
+            # print("get_yesterday_high trigger ")
             return get_yesterday_high()
 
     except Error as e:
@@ -164,7 +164,7 @@ def get_yesterday_high():
         # Determine the correct date to save
         save_date = from_date.date()
         
-        save_yesterday_high(save_date, max(data['low']))
+        save_yesterday_high(save_date, max(data['high']))
     except Exception as e:
         return 0
 
