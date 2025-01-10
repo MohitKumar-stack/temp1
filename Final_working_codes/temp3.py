@@ -106,7 +106,7 @@ def get_strikes_and_expiry(nifty_price, Instrument,order_value_checker,nifty_low
                     temp=get_last_trade_price(i,expiry_date,Instrument)
                     # print(temp)
                     if temp is not None:
-                        if 94.0<=temp<=104.0:
+                        if 94.0<=temp<=204.0:
                             ls.append(temp)
                             option_chain_price=temp
                             option_type.append(Instrument)
@@ -216,60 +216,60 @@ def profit_loss_tracker():
     global strike_rate, expiry_date,option_type
     global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130
     global option_chain_price,total_call_quality,total_put_quality
-    temp1=0
 
-    unique_values = list(set(option_type))
-    try:
-    # check for at 11:30 and 2:30 conditions
-        if (current_time >= datetime.strptime("11:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:30:59", "%H:%M:%S").time())) or (current_time >= datetime.strptime("14:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:30:59", "%H:%M:%S").time())):
-            if len(unique_values)==1:
-                if unique_values[0]=="C":
+    if len(option_type)==1: 
+        try: # for ideal condition 
+            new_price=get_last_trade_price(strike_rate,expiry_date,option_type[0])
+            if abs(new_price-option_chain_price)>=15:
+                    if option_type[0]=="C":
+                        sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_call_quality)
+                    if option_type[0]=="P":
+                        sell_order(f"NIFTY{expiry_date}{option_type[0]}{strike_rate}",total_put_quality)
+
+                    save_trigger_data(
+                        nifty_price=nifty_price, expiry_date=expiry_date, option_type=Instrument, strike_rate=strike_rate, 
+                        option_chain_price="0000", LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                        LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
+                        LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
+                        yesterday_low=yesterday_low
+                    )
+                    strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
+        except:
+            return             
+    
+    elif len(option_type)>1:
+        try:
+            print("Enter into KHshcdi condions ")
+            if (current_time >= datetime.strptime("11:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:30:59", "%H:%M:%S").time())) or (current_time >= datetime.strptime("14:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:30:59", "%H:%M:%S").time())):
+                print("Enter into KHshcdi condions time also varied")
+                unique_values = list(set(option_type))
+                if len(unique_values)==1 and unique_values[0]=="C":
                     sell_order(f"NIFTY{expiry_date}C{strike_rate}",total_call_quality)
-                            
-                if unique_values[0]=="P":
+                elif len(unique_values)==1 and unique_values[0]=="P":
                     sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality)
-                temp1=1
-                            
 
-            if len(unique_values)==2: 
+                elif len(unique_values)==2:
                     sell_order(f"NIFTY{expiry_date}C{strike_rate}",total_call_quality)
-                    sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality)
-                    temp1=1
-        
-
-        if len(unique_values)==1:
-            new_price=get_last_trade_price(strike_rate,expiry_date,unique_values[0])
-            is_increased_by_14 = new_price >= option_chain_price * 1.14
-            if is_increased_by_14 is True:
-                if unique_values[0]=="C":
-                    sell_order(f"NIFTY{expiry_date}C{strike_rate}",total_call_quality)
-                if unique_values[0]=="P":
-                    sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality)
-                temp1=1
-        
-
-        if len(unique_values)==2:
-                new_price=get_last_trade_price(strike_rate,expiry_date,unique_values[0])
-                is_increased_by_14 = new_price >= option_chain_price * 1.14
-                if is_increased_by_14 is True:
-                    sell_order(f"NIFTY{expiry_date}C{strike_rate}",total_call_quality)
-                    sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality)
-                    temp1=1
-
-        if temp1==1:
-            save_trigger_data(
+                    sell_order(f"NIFTY{expiry_date}P{strike_rate}",total_put_quality) 
+                save_trigger_data(
                             nifty_price=nifty_price, expiry_date=expiry_date, option_type=Instrument, strike_rate=strike_rate, 
                             option_chain_price="0000", LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
                             LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low
                         )
-            strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
-            return 
-    except:
-        return
-            
+                strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
+                return
+        except:
+            pass    
+
+    return
     
+
+
+
+
+
 
 # function to get the last trade price of option_chain
 
@@ -312,7 +312,7 @@ def get_last_trade_price(strikes, expiry_date,option_type):
 
         # Wait for the WebSocket to open
         while not socket_opened:
-            t.sleep(0.2)
+            t.sleep(0.1)
 
         # Subscribe to the instrument
         instrument = alice.get_instrument_by_symbol("NFO", f"NIFTY{expiry_date}{option_type}{strikes}")
@@ -322,7 +322,7 @@ def get_last_trade_price(strikes, expiry_date,option_type):
         timeout = 3  # seconds
         start_time = t.time()
         while ltp is None and (t.time() - start_time) < timeout:
-            t.sleep(0.3)
+            t.sleep(0.1)
 
         # Unsubscribe and close the WebSocket
 
@@ -571,11 +571,11 @@ def fetch_nifty_data():
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:30:05", "%H:%M:%S").time():
             if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < -2.0:
                 print("H1 put morning start-end time varifyed at 10:30 AM")
-                get_strikes_and_expiry(nifty_price,'P',2,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
+                get_strikes_and_expiry(nifty_price,'P',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
      
             elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < 0.0:
 
-                get_strikes_and_expiry(nifty_price, 'C',2,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
+                get_strikes_and_expiry(nifty_price, 'C',0,nifty_low,nifty_high,nifty_open)# 0 for strike rate 
                 # buy put for safety guard
 
 
