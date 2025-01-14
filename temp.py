@@ -1,4 +1,6 @@
-
+import json
+import time as t
+# from alice_blue import Aliceblue
 import pandas as pd
 import time as t
 import pytz
@@ -10,10 +12,14 @@ import mysql.connector
 from mysql.connector import Error
 import json
 
-def get_last_trade_price(strikes,expiry_date,option_type):
-    try :
+def get_last_trade_price(strikes, expiry_date, option_type):
+    try:
+        # Initialize AliceBlue session
         alice = Aliceblue("1721033", "Z7PigAB8aqzbupeF32NaqM7DysmojljIUTK1754cb2M2vQLxePl0Rnscuz2p5uaaJPeXBJcVGQrHXENy1rB1sEEF7Yq0JZ02D8KkCcq5OlC3EknP6N0IkvzGo1DPbUas")
         alice.get_session_id()
+
+        # Update the NFO contract file before subscribing
+        alice.get_contract_master("NFO")
 
         ltp = None
         socket_opened = False
@@ -29,12 +35,12 @@ def get_last_trade_price(strikes,expiry_date,option_type):
         def socket_error(message):
             nonlocal ltp
             ltp = None
-            # print("Socket Error:", message)
+            print("Socket Error:", message)
 
         def feed_data(message):
             nonlocal ltp
             feed_message = json.loads(message)
-            if feed_message["t"] == "tk":
+            if feed_message.get("t") == "tk":
                 ltp = feed_message.get("lp")
 
         # Start the WebSocket
@@ -48,45 +54,33 @@ def get_last_trade_price(strikes,expiry_date,option_type):
 
         # Wait for the WebSocket to open
         while not socket_opened:
-            t.sleep(0.3)
+            t.sleep(0.4)
+
+        # Get the updated instrument data
+        instrument = alice.get_instrument_by_symbol("NFO", f"NIFTY{expiry_date}{option_type}{strikes}")
 
         # Subscribe to the instrument
-        instrument = alice.get_instrument_by_symbol("NFO", f"NIFTY{expiry_date}{option_type}{strikes}")
         alice.subscribe([instrument])
 
         # Wait for the LTP to be received
-        timeout = 5  # seconds
+        timeout = 7  # Increased timeout
         start_time = t.time()
         while ltp is None and (t.time() - start_time) < timeout:
-            t.sleep(0.3)
+            t.sleep(0.4)
 
-        # Unsubscribe and close the WebSocket
+        # Unsubscribe after fetching data
+        alice.unsubscribe([instrument])
 
+        # Return the Last Trade Price
         if ltp is None:
             raise TimeoutError("Failed to receive LTP within the timeout period.")
 
         return float(ltp)
-    
-    except:
-        return 
-    
-print(get_last_trade_price(23600,"16JAN25","P"))
 
-def get_expiry_date():
-    today = datetime.now().date()  # Get today's date
-    print("Today's Date:", today.strftime('%A, %d %b %Y'))  # Print today's date with the day
-    print("Weekday Number:", today.weekday())  # Print the numeric representation of the weekday (Monday = 0, Sunday = 6)
+    except Exception as e:
+        print("Error in get_last_trade_price:", str(e))
+        return None
 
-    # Calculate how many days to add to reach next week's Thursday
-    days_until_next_thursday = (3 - today.weekday()) % 7 + 7  # Always move to the Thursday of the next week
-
-    next_week_thursday = today + timedelta(days=days_until_next_thursday)  # Get next week's Thursday
-
-    # Format the date as 'DDMMMYY'
-    formatted_date = next_week_thursday.strftime('%d%b%y').upper()
-    print("Next Week's Thursday Date:", formatted_date)
-
-    return formatted_date
-
-print(get_expiry_date())
+c=get_last_trade_price(23700,"23JAN25","C")
+print(c)
 
