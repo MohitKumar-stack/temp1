@@ -46,19 +46,15 @@ api_key = "Z7PigAB8aqzbupeF32NaqM7DysmojljIUTK1754cb2M2vQLxePl0Rnscuz2p5uaaJPeXB
 alice = Aliceblue(username, api_key)
 session_id = alice.get_session_id()['sessionID']
 
-global strike_rate, expiry_date,option_type
+#global variable declarations
 global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130
-global option_chain_price,total_call_quality,total_put_quality
+global total_call_quality,total_put_quality,global_investment_checker,at_10,at_1015,at_1030,at_1,at_115,at_130
 
-strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality=0,0,0,0,0,0
+#global variable assignment
+strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality,global_investment_checker=0,0,0,0,0,0,0
 LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130=0,0,0,0,0,0,0,0
 option_type=[]
-global global_investment_checker
-global at_10,at_1015,at_1030,at_1,at_115,at_130
 at_10,at_1015,at_1030,at_1,at_115,at_130=dict(),dict(),dict(),dict(),dict(),dict()
-global_investment_checker=0
-
-
 
 
 
@@ -579,28 +575,12 @@ def fetch_nifty_data():
     global option_chain_price,total_call_quality,total_put_quality
     global nifty_low, nifty_high,nifty_open,nifty_price
     global at_10,at_1015,at_1030,at_1,at_115,at_130
-
-    try:
-        if global_investment_checker==1:
-            print("INvested some amount")
-            profit_loss_tracker()
-
-        else:
-            print("not Invested some amount")
-    except:
-        pass
-
+    global yesterday_low,yesterday_high
 
     try:
         # Fetch data for NIFTY 50
         instrument = alice.get_instrument_by_symbol('NSE', 'NIFTY 50')
-        nifty_data = alice.get_scrip_info(instrument)
-        # Variables for specific LTP times
-        global yesterday_low,yesterday_high
-        # print(" Yesterday low in Nifty function ",yesterday_low)
-        # yesterday_low=yesterday_lowest_market_value()
-
-         
+        nifty_data = alice.get_scrip_info(instrument)  
         # Extract and safely convert values
         nifty_open = float(nifty_data.get('openPrice')) if nifty_data.get('openPrice') is not None else 0.0
         nifty_price = float(nifty_data.get('LTP')) if nifty_data.get('LTP') is not None else 0.0
@@ -608,11 +588,8 @@ def fetch_nifty_data():
         nifty_low = float(nifty_data.get('Low')) if nifty_data.get('Low') is not None else 0.0        
         # Print data
         print(f"NIFTY50 - Open: {nifty_open}, LTP: {nifty_price}, High: {nifty_high}, Low: {nifty_low}")
-    
-        current_time_ist = datetime.now(ist_timezone).time()
-        formatted_time_ist = current_time_ist.strftime("%H:%M:%S")
-        current_time = datetime.strptime(formatted_time_ist, "%H:%M:%S").time()
 
+        current_time = datetime.strptime(datetime.now(ist_timezone).time().strftime("%H:%M:%S"), "%H:%M:%S").time()
         print(f"Current time: {current_time}")
         # print(type(current_time))
 
@@ -637,16 +614,27 @@ def fetch_nifty_data():
 
         except Exception as e:
             print(f"Error storing LTP values: {e}")
+        
+        #investment checker
+        try:
+            if global_investment_checker==1:
+                print("Investment Some Amount")
+                profit_loss_tracker()
 
-        # LTP_at_930=23518.90
-        # LTP_at_10=23669.65
+            else:
+                print("No Investment As of Now")
+        except:
+            pass
+
+        # LTP_at_930=23221.05
+        # LTP_at_10=23312.25
         # LTP_at_1015=23660.65
         # LTP_at_1030=24964.75
         # nifty_open =23700.65
         # nifty_price =23688.95
         # nifty_high =23830.85
         # nifty_low =23636.15
-        # LTP_at_1230=23636.15
+        # LTP_at_1230=23220.80
         
        
         print("at 9:30", LTP_at_930)
@@ -657,6 +645,8 @@ def fetch_nifty_data():
         print("at 1:00", LTP_at_1)
         print("at 1:15", LTP_at_115)
         print("at 1:30", LTP_at_130)
+        print("yesterday low", yesterday_low)
+        print("yesterday high", yesterday_high)
 
 
     # morning conditions 
@@ -720,7 +710,7 @@ def fetch_nifty_data():
 
             #condtion check at 10:30 AM PUT  
 
-
+       #condtion check at 10:30 AM PUT 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:34:00", "%H:%M:%S").time():
             if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < -2.0 and len(at_1030)==0 and len(at_10)!=0:
@@ -780,7 +770,7 @@ def fetch_nifty_data():
 
         #condtion check at 1 PM PUT 
 
-        if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:00:01", "%H:%M:%S").time():
+        if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:05:01", "%H:%M:%S").time():
             if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_1 - LTP_at_1230) < -2.0 and len(at_1)==0:
                 print("H2 put afternoon varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
@@ -790,12 +780,13 @@ def fetch_nifty_data():
 
         #condtion check at 1:15 PM PUT 
         
-        if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:15:05", "%H:%M:%S").time():
+        if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:19:05", "%H:%M:%S").time():
             if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_1- LTP_at_1230) < -2.0 and (LTP_at_115- LTP_at_1) < 0.0 and len(at_115)==0 and len(at_1)!=0:
                 pass # no buing at this point 
                 #  print("H2 put afternoon varifyed at 1:15 PM")
                 # get_strikes_and_expiry(nifty_price, 'P',strike_rate)       
             elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_1- LTP_at_1230) < -2.0 and (LTP_at_115- LTP_at_1) > 5.0 and len(at_115)==0 and len(at_1)!=0:
+                print("H1 put morning start-end time varifyed at 1:15 PM ")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 #   buy put for safety guard
 
@@ -803,12 +794,13 @@ def fetch_nifty_data():
 
 
 
-        if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:30:05", "%H:%M:%S").time():
+        if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:35:05", "%H:%M:%S").time():
             if (nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0:
-                print("H1 put morning start-end time varifyed at 10:30 AM")
+                print("H1 put morning start-end time varifyed at 1:30 PM level 1")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
       
             elif(nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0 and nifty_high < yesterday_high and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0:
+                print("H1 put morning start-end time varifyed at 1:30 PM level 2")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 # buy put for safety guard
 
@@ -818,7 +810,7 @@ def fetch_nifty_data():
     except Exception as e:
         print(f"Error fetching NIFTY data: {e}")
 
-# Fetch NIFTY data every 0.5 seconds
+# Fetch NIFTY data every 0.3 seconds
 while True:
     fetch_nifty_data()
     t.sleep(0.3)

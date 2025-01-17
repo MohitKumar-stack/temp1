@@ -46,7 +46,7 @@ def sell_order(symbol,Quantity):
 
 
 
-# print(place_order("NIFTY09JAn25C24150",600))
+# print(place_order("NIFTY23JAN25C24150",600))
 
 
 
