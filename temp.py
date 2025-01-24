@@ -56,5 +56,6 @@ current_time = datetime.strptime(formatted_time_ist, "%H:%M:%S").time()
 #      # `fun2()` runs in the background
 
 
-current_time = datetime.strptime(datetime.now(ist_timezone).time().strftime("%H:%M:%S"), "%H:%M:%S").time()
-print("current_time in profit loss function",current_time)
+dic={}
+if dic:
+    print("dic is not empty")

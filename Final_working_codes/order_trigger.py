@@ -27,7 +27,6 @@ def place_order(symbol,Quantity):
                     order_type = OrderType.Market, 
                     product_type = ProductType.Intraday))
                 print(order_check)
-                t.sleep(5)
                 return "Success"
 
 
@@ -39,14 +38,13 @@ def sell_order(symbol,Quantity):
                             order_type = OrderType.Market, 
                             product_type = ProductType.Intraday)
     print(order_check)
-    t.sleep(5)
     return "Success"
     
     
 
 
 
-# print(place_order("NIFTY23JAN25C24150",600))
+# print(place_order("NIFTY30JAN25C24150",600))
 
 
 
