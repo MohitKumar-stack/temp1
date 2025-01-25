@@ -88,8 +88,8 @@ def valid_strike_rate(nifty_price,Instrument):
     print("enter int valid_strike_rate funtion")
     nearest_strike = (nifty_price // 50) * 50
     # Generate a list of 5 backward and 5 forward strike prices
-    backward_strikes = [int(nearest_strike - (i * 50)) for i in range(1, 9)][::-1]  # 5 backward strikes as floats
-    forward_strikes = [int(nearest_strike + (i * 50)) for i in range(1, 9)]  # 5 forward strikes as floats
+    backward_strikes = [int(nearest_strike - (i * 50)) for i in range(1, 7)][::-1]  # 5 backward strikes as floats
+    forward_strikes = [int(nearest_strike + (i * 50)) for i in range(1, 7)]  # 5 forward strikes as floats
     expiry_date= get_expiry_date() # call the function for get_expiry_date
 
     result = dict()
@@ -254,7 +254,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
 
 
    # at 1 PM conditions check and controller 
-    elif current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("13:05:00", "%H:%M:%S").time()) and len(at_1)==0:     
+    elif current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("13:10:00", "%H:%M:%S").time()) and len(at_1)==0:     
             print("entered into at 1 PM condition")
             at_1=valid_strike_rate(nifty_price,Instrument)
             print(at_1)
@@ -426,6 +426,8 @@ def profit_loss_tracker():
             #         i.clear()
             #         print(f"sell order for call after clear the dic {i}",i)
             global_investment_checker=0
+            LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
+
                     
 
     if len(unique_Instrument)==1 and global_investment_checker==1:
@@ -452,6 +454,7 @@ def profit_loss_tracker():
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
                     at_10 = at_1015 = at_1030 = at_1 = at_115 = at_130 = {}
+                    LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
                     global_investment_checker=0
                     return                
 
