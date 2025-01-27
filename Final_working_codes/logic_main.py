@@ -88,8 +88,8 @@ def valid_strike_rate(nifty_price,Instrument):
     print("enter int valid_strike_rate funtion")
     nearest_strike = (nifty_price // 50) * 50
     # Generate a list of 5 backward and 5 forward strike prices
-    backward_strikes = [int(nearest_strike - (i * 50)) for i in range(1, 7)][::-1]  # 5 backward strikes as floats
-    forward_strikes = [int(nearest_strike + (i * 50)) for i in range(1, 7)]  # 5 forward strikes as floats
+    backward_strikes = [int(nearest_strike - (i * 50)) for i in range(1, 20)][::-1]  # 5 backward strikes as floats
+    forward_strikes = [int(nearest_strike + (i * 50)) for i in range(1, 20)]  # 5 forward strikes as floats
     expiry_date= get_expiry_date() # call the function for get_expiry_date
 
     result = dict()
@@ -202,7 +202,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
     # at 10:30 AM conditions check and controller 
     elif current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("10:35:00", "%H:%M:%S").time()) and len(at_1030)==0:
             print("entered into at 10:30 condition ")
-            if len(at_1015)!=0 and (at_1015["Instrument"]==Instrument): # put trigger at 15 and 30 and both are same
+            if at_1015 and (at_1015["Instrument"]==Instrument): # put trigger at 15 and 30 and both are same
                 Quantity=200
                 at_1015["Quantity"] = at_1015["Quantity"] + 200 
                 place_order(f"NIFTY{at_1015['expiry_date']}{at_1015['Instrument']}{at_1015['strike_rate']}", Quantity)  # call place_order function
@@ -235,7 +235,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                     print("entered into  at_1030 condition")
                     at_1030=valid_strike_rate(nifty_price,Instrument)
                     if at_1030:
-                        at_1030["Quantity"] + 400 
+                        at_1030["Quantity"] = 400 
                         print("values which aat_1030 stored",at_1030)
                         place_order(f"NIFTY{at_1030['expiry_date']}{at_1030['Instrument']}{at_1030['strike_rate']}", Quantity)  # call place_order function
                         print("ALLL Success Full")
@@ -305,7 +305,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
     # at 1:30 PM conditions check and controller 
     elif current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("13:35:00", "%H:%M:%S").time()) and len(at_130)==0:
             print("entered into at 1:30 condition ")
-            if len(at_115)!=0 and (at_115["Instrument"]==Instrument): # put trigger at 15 and 30 and both are same
+            if at_115 and (at_115["Instrument"]==Instrument): # put trigger at 15 and 30 and both are same
                 Quantity=200
                 at_115["Quantity"] = at_115["Quantity"] + 200 
                 place_order(f"NIFTY{at_115['expiry_date']}{at_115['Instrument']}{at_115['strike_rate']}", Quantity)  # call place_order function
@@ -315,7 +315,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                             LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
-                print("retun to nifty function back at_115")
+                print("retun to nifty function back at_130")
                 return
 
             elif len(at_115)==0:
@@ -331,24 +331,27 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                             LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
-                    print("retun to nifty function back ")
+                    print("retun to nifty function back at 1:30 ")
                     return
                 
                 elif (at_1["Instrument"]!=Instrument):  # no trigger at 15 but put at 30 not same at 10
-                    print("entered into  at_1030 condition")
+                    print("entered into  at_130 condition")
                     at_130=valid_strike_rate(nifty_price,Instrument)
-                    at_130["Quantity"] + 400 
-                    print("values which aat_1030 stored",at_130)
-                    place_order(f"NIFTY{at_130['expiry_date']}{at_130['Instrument']}{at_130['strike_rate']}", Quantity)  # call place_order function
-                    print("ALLL Success Full")
-                    save_trigger_data(
-                            nifty_price=nifty_price, expiry_date=at_130["expiry_date"], option_type=at_130["Instrument"], strike_rate=at_130["strike_rate"], 
-                            option_chain_price=at_130["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
-                            LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
-                            LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
-                            yesterday_low=yesterday_low)
-                    print("retun to nifty function back ")
-                    return
+                    if at_130: 
+                        at_130["Quantity"] = 400 
+                        print("values which aat_1030 stored",at_130)
+                        place_order(f"NIFTY{at_130['expiry_date']}{at_130['Instrument']}{at_130['strike_rate']}", Quantity)  # call place_order function
+                        print("ALLL Success Full")
+                        save_trigger_data(
+                                nifty_price=nifty_price, expiry_date=at_130["expiry_date"], option_type=at_130["Instrument"], strike_rate=at_130["strike_rate"], 
+                                option_chain_price=at_130["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                                LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
+                                LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
+                                yesterday_low=yesterday_low)
+                        print("retun to nifty function back ")
+                        return
+                    else:
+                        at_130.clear()
 
 
 # check profit all the time 
@@ -378,10 +381,10 @@ def profit_loss_tracker():
 
     if ( 
         (
-            current_time >= datetime.strptime("11:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:35:01", "%H:%M:%S").time())
+            current_time >= datetime.strptime("11:40:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:45:01", "%H:%M:%S").time())
 
         ) or (
-            current_time >= datetime.strptime("14:30:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:35:01", "%H:%M:%S").time())
+            current_time >= datetime.strptime("14:40:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:45:01", "%H:%M:%S").time())
         )
     ) and global_investment_checker == 1:
             print("check for second selling type when 14 percentage conditions not meet ")
@@ -391,6 +394,12 @@ def profit_loss_tracker():
                 if i and i.get("Instrument") == "C":
                     print(f"Sell order for Call: {i}")
                     sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
+                    save_trigger_data(
+                            nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
+                            option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                            LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
+                            LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
+                            yesterday_low=yesterday_low)
                     i.clear()  # Clear the dictionary
                     print(f"Dictionary after clearing: {i}")
 
@@ -398,65 +407,54 @@ def profit_loss_tracker():
                 elif i and i.get("Instrument") == "P":
                     print(f"Sell order for Put: {i}")
                     sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
+                    save_trigger_data(
+                            nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
+                            option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                            LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
+                            LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
+                            yesterday_low=yesterday_low)
                     i.clear()  # Clear the dictionary
                     print(f"Dictionary after clearing: {i}")
-
-            # for i in [at_10,at_1015,at_1030,at_1,at_115,at_130]:
-            #     if i and i.get("Instrument") == "C":
-            #         print(f"sell order for call {i}",i)
-            #         sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}",i['Quantity'])
-            #         # save_trigger_data(
-            #         #         nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
-            #         #         option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
-            #         #         LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
-            #         #         LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
-            #         #         yesterday_low=yesterday_low)
-            #         i.clear()
-            #         print(f"sell order for call after clear the dic {i}",i)
-                    
-                
-            #     if i and i.get("Instrument") == "P":
-            #         sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}",i['Quantity'])
-            #         # save_trigger_data(
-            #         #         nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
-            #         #         option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
-            #         #         LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
-            #         #         LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
-            #         #         yesterday_low=yesterday_low)
-            #         i.clear()
-            #         print(f"sell order for call after clear the dic {i}",i)
             global_investment_checker=0
             LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
+            at_10,at_1015,at_1030,at_1,at_115,at_130={},{},{},{},{},{}
 
                     
 
-    if len(unique_Instrument)==1 and global_investment_checker==1:
+    if global_investment_checker==1:
             print("check for 14 percentage conditions")
             new_price=get_last_trade_price(temp[0]["strike_rate"],temp[0]["expiry_date"], temp[0]["Instrument"])
             if (new_price >= temp[0]["option_chain_price"] * 1.14):
-                if unique_Instrument[0]=="C":
-                    sell_order(f"NIFTY{temp[0]['expiry_date']}C{temp[0]['strike_rate']}",total_call_quality)
-                    save_trigger_data(
-                            nifty_price=nifty_price, expiry_date=temp[0]["expiry_date"], option_type=temp[0]["Instrument"], strike_rate=temp[0]["strike_rate"], 
-                            option_chain_price=temp[0]["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
-                            LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
-                            LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
-                            yesterday_low=yesterday_low)
-                    at_10 = at_1015 = at_1030 = at_1 = at_115 = at_130 = {}
-                    global_investment_checker=0
-                    return
-                elif unique_Instrument[0]=="P":
-                    sell_order(f"NIFTY{temp[0]['expiry_date']}P{temp[0]['strike_rate']}",total_put_quality)
-                    save_trigger_data(
-                            nifty_price=nifty_price, expiry_date=temp[0]["expiry_date"], option_type=temp[0]["Instrument"], strike_rate=temp[0]["strike_rate"], 
-                            option_chain_price=temp[0]["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
-                            LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
-                            LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
-                            yesterday_low=yesterday_low)
-                    at_10 = at_1015 = at_1030 = at_1 = at_115 = at_130 = {}
-                    LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
-                    global_investment_checker=0
-                    return                
+                for i in [at_10, at_1015, at_1030, at_1, at_115, at_130]:
+                # Check if dictionary is not empty and is a Call option
+                    if i and i.get("Instrument") == "C":
+                        print(f"Sell order for Call: {i}")
+                        sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
+                        save_trigger_data(
+                                nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
+                                option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                                LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
+                                LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
+                                yesterday_low=yesterday_low)
+                        i.clear()  # Clear the dictionary
+                        print(f"Dictionary after clearing: {i}")
+
+                    # Check if dictionary is not empty and is a Put option
+                    elif i and i.get("Instrument") == "P":
+                        print(f"Sell order for Put: {i}")
+                        sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
+                        save_trigger_data(
+                                nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
+                                option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                                LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
+                                LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
+                                yesterday_low=yesterday_low)
+                        i.clear()  # Clear the dictionary
+                        print(f"Dictionary after clearing: {i}")
+                global_investment_checker=0
+                LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
+                at_10,at_1015,at_1030,at_1,at_115,at_130={},{},{},{},{},{}
+                
 
 
 
@@ -665,7 +663,7 @@ def fetch_nifty_data():
         except:
             pass
 
-        # LTP_at_930=23207.90
+        # LTP_at_930=22967.50
         # LTP_at_10=23312.25
         # LTP_at_1015=23260.65
         # LTP_at_1030=24964.75
@@ -673,7 +671,9 @@ def fetch_nifty_data():
         # nifty_price =23688.95
         # nifty_high =23830.85
         # nifty_low =23636.15
-        # LTP_at_1230=23012.25
+        # LTP_at_1230=22935.80
+        # LTP_at_1=22862.8
+        
         # yesterday_high=23169.6
         # yesterday_low=22900.0
        
@@ -769,7 +769,7 @@ def fetch_nifty_data():
     # afternoon conditions 
 
     # condtion check at 1 PM CALL 
-        if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:04:00", "%H:%M:%S").time():
+        if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:10:00", "%H:%M:%S").time():
             if  (nifty_high - nifty_open)> 75.0 and (nifty_open - nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and len(at_1)==0:
                 print("H1 call morning start-end time varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
@@ -810,7 +810,7 @@ def fetch_nifty_data():
 
         #condtion check at 1 PM PUT 
 
-        if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:05:01", "%H:%M:%S").time():
+        if current_time >= datetime.strptime("13:00:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:10:01", "%H:%M:%S").time():
             if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_1 - LTP_at_1230) < -2.0 and len(at_1)==0:
                 print("H2 put afternoon varifyed at 1 PM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
