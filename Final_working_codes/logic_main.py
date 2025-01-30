@@ -52,7 +52,7 @@ global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LT
 global total_call_quality,total_put_quality,global_investment_checker,at_10,at_1015,at_1030,at_1,at_115,at_130
 run_fun2 = False 
 #global variable assignment
-strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality,global_investment_checker=0,0,0,0,0,0,0
+strike_rate, expiry_date,option_type,option_chain_price,total_call_quality,total_put_quality,global_investment_checker,global_investment_checker_at_30=0,0,0,0,0,0,0,0
 LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130=0,0,0,0,0,0,0,0
 option_type=[]
 at_10,at_1015,at_1030,at_1,at_115,at_130={}, {}, {}, {}, {}, {}
@@ -138,7 +138,7 @@ def valid_strike_rate(nifty_price,Instrument):
 
 def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrument):
    
-    global global_investment_checker
+    global global_investment_checker,global_investment_checker_at_30
             
     print("entetr into get_strikes_and_expiry")
     global at_10,at_1015,at_1030,at_1,at_115,at_130
@@ -213,6 +213,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
             print("retun to nifty function back st 10:30")
+            global_investment_checker_at_30=1
             return
 
         if len(at_1015)==0:
@@ -229,6 +230,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
                 print("retun to nifty function back st 10:30")
+                global_investment_checker_at_30=1
                 return
             
             elif len(at_10)!=0 and at_10["Instrument"]!=Instrument:   # no trigger at 15 but put at 30 not same at 10
@@ -246,6 +248,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                                 LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                                 yesterday_low=yesterday_low)
                     print("retun to nifty function back st 10:30")
+                    global_investment_checker_at_30=1
                     return
                 else:
                     at_1030.clear()
@@ -317,6 +320,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                                 LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                                 yesterday_low=yesterday_low)
                 print("retun to nifty function back st 1:30")
+                global_investment_checker_at_30=1
                 return
 
             if len(at_115)==0:
@@ -333,6 +337,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                                 LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                                 yesterday_low=yesterday_low)
                     print("retun to nifty function back st 1:30")
+                    global_investment_checker_at_30=1
                     return
                 
                 elif len(at_1)!=0 and at_1["Instrument"]!=Instrument:   # no trigger at 15 but put at 30 not same at 10
@@ -350,6 +355,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                                     LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                                     yesterday_low=yesterday_low)
                         print("retun to nifty function back st 1:30")
+                        global_investment_checker_at_30=1
                         return
                     else:
                         at_130.clear()
@@ -362,7 +368,7 @@ def profit_loss_tracker():
     print("entered profit_loss_tracker function")
     global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130
     global total_call_quality,total_put_quality,expiry_date
-    global at_10,at_1015,at_1030,at_1,at_115,at_130,global_investment_checker
+    global at_10,at_1015,at_1030,at_1,at_115,at_130,global_investment_checker,global_investment_checker_at_30
     current_time = datetime.strptime(datetime.now(ist_timezone).time().strftime("%H:%M:%S"), "%H:%M:%S").time()
     print("current_time in profit loss function",current_time)
     
@@ -418,6 +424,7 @@ def profit_loss_tracker():
                     i.clear()  # Clear the dictionary
                     print(f"Dictionary after clearing: {i}")
             global_investment_checker=0
+            global_investment_checker_at_30=0
             LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
             at_10,at_1015,at_1030,at_1,at_115,at_130={},{},{},{},{},{}
 
@@ -454,6 +461,7 @@ def profit_loss_tracker():
                         i.clear()  # Clear the dictionary
                         print(f"Dictionary after clearing: {i}")
                 global_investment_checker=0
+                global_investment_checker_at_30=0
                 LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1, LTP_at_115, LTP_at_130 = (0, 0, 0, 0, 0, 0, 0, 0)
                 at_10,at_1015,at_1030,at_1,at_115,at_130={},{},{},{},{},{}
                 
@@ -610,7 +618,7 @@ def save_trigger_data(
 # Fetch real-time data for NIFTY50 and implement logic
 def fetch_nifty_data():
    # defining global variables  
-    global strike_rate, expiry_date,option_type,global_investment_checker,run_fun2
+    global strike_rate, expiry_date,option_type,global_investment_checker,global_investment_checker_at_30
     global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130
     global option_chain_price,total_call_quality,total_put_quality
     global nifty_low, nifty_high,nifty_open,nifty_price
@@ -717,11 +725,11 @@ def fetch_nifty_data():
     # condtion check at 10:30 AM CALL 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:45:00", "%H:%M:%S").time() and len(at_10)!=0:
-            if (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1030 - LTP_at_10) > 2.0 and len(at_1030)==0 :
+            if (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1030 - LTP_at_10) > 2.0 and len(at_1030)==0 and global_investment_checker_at_30==0:
                 print("H1 call morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')
             
-            elif (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1030 - LTP_at_10) < 2.0 and len(at_1030)==0:
+            elif (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1030 - LTP_at_10) < 0.0 and len(at_1030)==0 and global_investment_checker_at_30==0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')  # buy put for safety guard
                 # buy put at this conditons
         
@@ -755,11 +763,11 @@ def fetch_nifty_data():
        #condtion check at 10:30 AM PUT 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:34:00", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < -2.0 and len(at_1030)==0 and len(at_10)!=0:
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < -2.0 and len(at_1030)==0 and len(at_10)!=0 and global_investment_checker_at_30==0:
                 print("H1 put morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
      
-            elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < 0.0 and len(at_1030)==0 and len(at_10)!=0:
+            elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) > 0.0 and len(at_1030)==0 and len(at_10)!=0 and global_investment_checker_at_30==0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 # buy put for safety guard
 
@@ -795,11 +803,11 @@ def fetch_nifty_data():
     #condtion check at 1:30 PM CALL 
                        
         if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:34:00", "%H:%M:%S").time() :
-            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and (LTP_at_130- LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0:
+            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and (LTP_at_130- LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 print("H1 call morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C') # 0 for strike rate 
 
-            elif (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and (LTP_at_130- LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0:
+            elif (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and (LTP_at_130- LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
  #               buy put for safety guard
                 # buy put at this conditons
@@ -837,11 +845,11 @@ def fetch_nifty_data():
 
 
         if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:35:05", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0 and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0:
+            if (nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0 and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 print("H1 put morning start-end time varifyed at 1:30 PM level 1")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
       
-            elif(nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0  and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0:
+            elif(nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0  and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 print("H1 put morning start-end time varifyed at 1:30 PM level 2")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 # buy put for safety guard
