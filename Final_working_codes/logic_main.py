@@ -389,10 +389,10 @@ def profit_loss_tracker():
 
     if ( 
         (
-            current_time >= datetime.strptime("11:40:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:45:01", "%H:%M:%S").time())
+            current_time >= datetime.strptime("11:40:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("11:35:01", "%H:%M:%S").time())
 
         ) or (
-            current_time >= datetime.strptime("14:40:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:45:01", "%H:%M:%S").time())
+            current_time >= datetime.strptime("14:40:00", "%H:%M:%S").time() and current_time <= (datetime.strptime("14:35:01", "%H:%M:%S").time())
         )
     ) and global_investment_checker == 1:
             print("check for second selling type when 14 percentage conditions not meet ")
@@ -401,10 +401,11 @@ def profit_loss_tracker():
                 # Check if dictionary is not empty and is a Call option
                 if i and i.get("Instrument") == "C":
                     print(f"Sell order for Call: {i}")
+                    new_price=get_last_trade_price(i["strike_rate"],i["expiry_date"], i["Instrument"])
                     sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
                     save_trigger_data(
                             nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
-                            option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                            option_chain_price=new_price, LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
                             LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
@@ -414,10 +415,11 @@ def profit_loss_tracker():
                 # Check if dictionary is not empty and is a Put option
                 elif i and i.get("Instrument") == "P":
                     print(f"Sell order for Put: {i}")
+                    new_price=get_last_trade_price(i["strike_rate"],i["expiry_date"], i["Instrument"])
                     sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
                     save_trigger_data(
                             nifty_price=nifty_price, expiry_date=i["expiry_date"], option_type=i["Instrument"], strike_rate=i["strike_rate"], 
-                            option_chain_price=i["option_chain_price"], LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
+                            option_chain_price=new_price, LTP_at_930=LTP_at_930, LTP_at_10=LTP_at_10, LTP_at_1015=LTP_at_1015, 
                             LTP_at_1030=LTP_at_1030, LTP_at_1230=LTP_at_1230, LTP_at_1=LTP_at_1, LTP_at_115=LTP_at_115, 
                             LTP_at_130=LTP_at_130, nifty_low = nifty_low, nifty_high=nifty_high, nifty_open=nifty_open, 
                             yesterday_low=yesterday_low)
@@ -669,6 +671,7 @@ def fetch_nifty_data():
                 profit_loss_tracker()
                 # run_fun2 = True
             else:
+                t.sleep(0.3)
                 print("No Investment As of Now")
         except:
             pass
