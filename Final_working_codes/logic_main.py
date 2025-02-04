@@ -639,9 +639,9 @@ def fetch_nifty_data():
         nifty_high = float(nifty_data.get('High')) if nifty_data.get('High') is not None else 0.0
         nifty_low = float(nifty_data.get('Low')) if nifty_data.get('Low') is not None else 0.0        
         # Print data
-        # print(f"NIFTY50 - Open: {nifty_open}, LTP: {nifty_price}, High: {nifty_high}, Low: {nifty_low}")
+        print(f"NIFTY50 - Open: {nifty_open}, LTP: {nifty_price}, High: {nifty_high}, Low: {nifty_low}")
         current_time = datetime.strptime(datetime.now(ist_timezone).time().strftime("%H:%M:%S"), "%H:%M:%S").time()
-        # print(f"Current time: {current_time}")
+        print(f"Current time: {current_time}")
         # print(type(current_time))
 
 #  chcking price at specific time and showing it
@@ -691,16 +691,16 @@ def fetch_nifty_data():
         # yesterday_high=23169.6
         # yesterday_low=22900.0
        
-        # print("at 9:30", LTP_at_930)
-        # print("at 10:00", LTP_at_10)
-        # print("at 10:15", LTP_at_1015)
-        # print("at 10:30", LTP_at_1030)
-        # print("at 12:30", LTP_at_1230)
-        # print("at 1:00", LTP_at_1)
-        # print("at 1:15", LTP_at_115)
-        # print("at 1:30", LTP_at_130)
-        # print("yesterday low", yesterday_low)
-        # print("yesterday high", yesterday_high)
+        print("at 9:30", LTP_at_930)
+        print("at 10:00", LTP_at_10)
+        print("at 10:15", LTP_at_1015)
+        print("at 10:30", LTP_at_1030)
+        print("at 12:30", LTP_at_1230)
+        print("at 1:00", LTP_at_1)
+        print("at 1:15", LTP_at_115)
+        print("at 1:30", LTP_at_130)
+        print("yesterday low", yesterday_low)
+        print("yesterday high", yesterday_high)
        
 
     # morning conditions 
