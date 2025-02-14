@@ -15,12 +15,17 @@ from get_yesterday_low import yesterday_lowest_market_value  # for get_yesterday
 from get_yesterday_high import yesterday_highest_market_value
 from APIConnect.APIConnect import APIConnect 
 
+nuvama_req_id ="303062c56710f173"
+
+
 api_connect = APIConnect(
     "877nujhgiEqQhg",
     "74BjQ&3cylKWKot(",
-    "613231fb2a539670",
-    "python-settings.ini"
+    nuvama_req_id,
+    True,
+    "/Users/mohitkumar/Downloads/Php Project/Final_working_codes/python-settings.ini"
 )
+
 # https://www.nuvamawealth.com/api-connect/login?api_key=877nujhgiEqQhg
 from constants.exchange import ExchangeEnum
 from constants.order_type import OrderTypeEnum
@@ -61,7 +66,7 @@ api_key = "Z7PigAB8aqzbupeF32NaqM7DysmojljIUTK1754cb2M2vQLxePl0Rnscuz2p5uaaJPeXB
 # Initialize Aliceblue session
 alice = Aliceblue(username, api_key)
 session_id = alice.get_session_id()['sessionID']
-# alice.get_contract_master("NFO")
+alice.get_contract_master("NFO")
 
 
 #global variable declarations
@@ -94,10 +99,16 @@ def get_expiry_date():
     next_week_thursday = today + timedelta(days=days_until_next_thursday)  # Get next week's Thursday
 
     # Format the date as 'DDMMMYY'
-    formatted_date = next_week_thursday.strftime('%d%b').upper()
+    formatted_date = next_week_thursday.strftime('%d%b%y').upper()
     print("Next Week's Thursday Date:", formatted_date)
 
-    return formatted_date
+    # nuvama date formated 
+    dt = datetime.strptime(formatted_date, "%d%b%y")
+    Nuvama_date = dt.strftime("%y%-m%d") if dt.month > 9 else dt.strftime("%y") + str(dt.month) + dt.strftime("%d")
+
+
+
+    return formatted_date,Nuvama_date
 
 
 
@@ -107,7 +118,7 @@ def valid_strike_rate(nifty_price,Instrument):
     # Generate a list of 5 backward and 5 forward strike prices
     backward_strikes = [int(nearest_strike - (i * 50)) for i in range(1, 20)][::-1]  # 5 backward strikes as floats
     forward_strikes = [int(nearest_strike + (i * 50)) for i in range(1, 20)]  # 5 forward strikes as floats
-    expiry_date= get_expiry_date() # call the function for get_expiry_date
+    expiry_date,Nuvama_date= get_expiry_date() # call the function for get_expiry_date
 
     result = dict()
 
@@ -124,7 +135,8 @@ def valid_strike_rate(nifty_price,Instrument):
                             "expiry_date":expiry_date,
                             "strike_rate":int(i),
                             "option_chain_price" :temp,
-                            "Instrument":Instrument
+                            "Instrument":Instrument,
+                            "Nuvama_date":Nuvama_date
                         }
                         print("exit form valid_strike_rate funtion")
                         return result
@@ -142,7 +154,8 @@ def valid_strike_rate(nifty_price,Instrument):
                             "expiry_date":expiry_date,
                             "strike_rate":int(i),
                             "option_chain_price" :temp,
-                            "Instrument":Instrument
+                            "Instrument":Instrument,
+                            "Nuvama_date":Nuvama_date
                         }
                         print("exit form valid_strike_rate funtion")
                         return result
@@ -177,7 +190,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
             # print("values which at_10 stored",at_10)
             if len(at_10)!=0:
                 # NIFTY25FEB21750CE
-                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_10['expiry_date']}{at_10['strike_rate']}{at_10['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = 600, Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_10['Nuvama_date']}{at_10['strike_rate']}{at_10['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = 600, Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
                 # place_order(f"NIFTY{at_10['expiry_date']}{at_10['Instrument']}{at_10['strike_rate']}", 600)
                 global_investment_checker=1
                 at_10["Quantity"] = 600
@@ -199,7 +212,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
             # print("values which at_10:15 stored",at_1015)
             if len(at_1015)!=0:
                 at_1015["Quantity"] = 200
-                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1015['expiry_date']}{at_1015['strike_rate']}{at_1015['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1015["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1015['Nuvama_date']}{at_1015['strike_rate']}{at_1015['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1015["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                 # place_order(f"NIFTY{at_1015['expiry_date']}{at_1015['Instrument']}{at_1015['strike_rate']}", 200)  # call place_order function
                 # print("ALLL Success Full")
@@ -220,7 +233,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
         if len(at_1015)!=0 and (at_1015["Instrument"]==Instrument): # put trigger at 15 and 30 and both are same
             Quantity=200
             at_1015["Quantity"] = at_1015["Quantity"] + 200 
-            api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1015['expiry_date']}{at_1015['strike_rate']}{at_1015['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1015["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+            api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1015['Nuvama_date']}{at_1015['strike_rate']}{at_1015['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1015["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
             # place_order(f"NIFTY{at_1015['expiry_date']}{at_1015['Instrument']}{at_1015['strike_rate']}", Quantity)  # call place_order function
             save_market_data(Timestamp = datetime.now(ist_timezone).strftime("%Y-%m-%d %H:%M:%S"),trade_type=at_1015["trade_type"], nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930,at_10_00=LTP_at_10, at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=at_1015["strike_rate"], instrument=at_1015["Instrument"], option_chain_price=at_1015["option_chain_price"], expiry_date=at_1015["expiry_date"],Quantity=at_1015["Quantity"])
@@ -234,7 +247,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                 # print("values which at_10:30 stored same as 10 quantity increassed")
                 Quantity=200
                 at_10["Quantity"] = at_10["Quantity"] + 200 
-                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_10['expiry_date']}{at_10['strike_rate']}{at_10['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_10["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_10['Nuvama_date']}{at_10['strike_rate']}{at_10['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_10["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                 # place_order(f"NIFTY{at_10['expiry_date']}{at_10['Instrument']}{at_10['strike_rate']}", Quantity)  # call place_order function
                 # print("ALLL Success Full")
@@ -249,7 +262,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                 if at_1030:
                     at_1030["Quantity"] = 400 
                     # print("values which aat_1030 stored",at_1030)
-                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1030['expiry_date']}{at_1030['strike_rate']}{at_1030['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1030["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1030['Nuvama_date']}{at_1030['strike_rate']}{at_1030['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1030["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                     # place_order(f"NIFTY{at_1030['expiry_date']}{at_1030['Instrument']}{at_1030['strike_rate']}", Quantity)  # call place_order function
                     # print("ALLL Success Full")
@@ -271,8 +284,8 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
             print(at_1)
             if len(at_1)!=0:
                 at_1["Quantity"] = 600 
-                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1['expiry_date']}{at_1['strike_rate']}{at_1['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
-
+                print(api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1['Nuvama_date']}{at_1['strike_rate']}{at_1['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) )
+   
                 # place_order(f"NIFTY{at_1['expiry_date']}{at_1['Instrument']}{at_1['strike_rate']}", 600)  # call place_order function
                 global_investment_checker=1
                 
@@ -296,7 +309,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
             if len(at_115)!=0:
                 at_115["Quantity"] = 200 
 
-                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_115['expiry_date']}{at_115['strike_rate']}{at_115['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_115["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_115['Nuvama_date']}{at_115['strike_rate']}{at_115['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_115["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                 # place_order(f"NIFTY{at_115['expiry_date']}{at_115['Instrument']}{at_115['strike_rate']}", 200)  # call place_order function
                 # print("ALLL Success Full")
@@ -316,7 +329,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
             if len(at_115)!=0 and (at_115["Instrument"]==Instrument): # put trigger at 15 and 30 and both are same
                 Quantity=200
                 at_115["Quantity"] = at_115["Quantity"] + 200 
-                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_115['expiry_date']}{at_115['strike_rate']}{at_115['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_115["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_115['Nuvama_date']}{at_115['strike_rate']}{at_115['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_115["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                 # place_order(f"NIFTY{at_115['expiry_date']}{at_115['Instrument']}{at_115['strike_rate']}", Quantity)  # call place_order function
                 save_market_data(Timestamp = datetime.now(ist_timezone).strftime("%Y-%m-%d %H:%M:%S"),trade_type=at_115["trade_type"], nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930,at_10_00=LTP_at_10, at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=at_115["strike_rate"], instrument=at_115["Instrument"], option_chain_price=at_115["option_chain_price"], expiry_date=at_115["expiry_date"],Quantity=at_115["Quantity"])
@@ -329,7 +342,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                     # print("values which at_10:30 stored same as 10 quantity increassed")
                     Quantity=200
                     at_1["Quantity"] = at_1["Quantity"] + 200 
-                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1['expiry_date']}{at_1['strike_rate']}{at_1['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_1['Nuvama_date']}{at_1['strike_rate']}{at_1['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_1["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                     # place_order(f"NIFTY{at_1['expiry_date']}{at_1['Instrument']}{at_1['strike_rate']}", Quantity)  # call place_order function
                     # print("ALLL Success Full")
@@ -343,7 +356,7 @@ def get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,Instrumen
                     at_130=valid_strike_rate(nifty_price,Instrument)
                     if at_130:
                         at_130["Quantity"] = 400 
-                        api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_130['expiry_date']}{at_130['strike_rate']}{at_130['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_130["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                        api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{at_130['Nuvama_date']}{at_130['strike_rate']}{at_130['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.BUY, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = at_130["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                         # place_order(f"NIFTY{at_130['expiry_date']}{at_130['Instrument']}{at_130['strike_rate']}", Quantity)  # call place_order function
                         save_market_data(Timestamp =datetime.now(ist_timezone).strftime("%Y-%m-%d %H:%M:%S"),trade_type=at_130["trade_type"], nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930,at_10_00=LTP_at_10, at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=at_115["strike_rate"], instrument=at_130["Instrument"], option_chain_price=at_130["option_chain_price"], expiry_date=at_130["expiry_date"],Quantity=at_130["Quantity"])
@@ -397,7 +410,7 @@ def profit_loss_tracker():
                 if i and i.get("Instrument") == "C":
                     # print(f"Sell order for Call: {i}")
                     new_price=get_last_trade_price(i["strike_rate"],i["expiry_date"], i["Instrument"])
-                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['expiry_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['Nuvama_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                     # sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
                     save_market_data(timestamp = datetime.now().timestamp(), trade_type="Sell", nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930, LTP_at_10=LTP_at_10, at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=i["strike_rate"], instrument=i["Instrument"], option_chain_price=new_price, expiry_date=i["expiry_date"],Quantity=i["Quantity"])
@@ -409,7 +422,7 @@ def profit_loss_tracker():
                 elif i and i.get("Instrument") == "P":
                     # print(f"Sell order for Put: {i}")
                     new_price=get_last_trade_price(i["strike_rate"],i["expiry_date"], i["Instrument"])
-                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['expiry_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                    api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['Nuvama_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
                     # sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
                     save_market_data(timestamp = datetime.now().timestamp(),trade_type="Sell", nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930, LTP_at_10=LTP_at_10, at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=i["strike_rate"], instrument=i["Instrument"], option_chain_price=new_price, expiry_date=i["expiry_date"],Quantity=i["Quantity"])
                     i.clear() 
@@ -431,7 +444,7 @@ def profit_loss_tracker():
                     if i and i.get("Instrument") == "C":
                         # print(f"Sell order for Call: {i}")
                         new_price=get_last_trade_price(i["strike_rate"],i["expiry_date"], i["Instrument"])
-                        api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['expiry_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                        api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['Nuvama_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                         # sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
                         save_market_data(timestamp = datetime.now().timestamp(),trade_type="Sell", nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930,LTP_at_10=LTP_at_10,at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=i["strike_rate"], instrument=i["Instrument"], option_chain_price=new_price, expiry_date=i["expiry_date"],Quantity=i["Quantity"])
@@ -443,7 +456,7 @@ def profit_loss_tracker():
                     elif i and i.get("Instrument") == "P":
                         # print(f"Sell order for Put: {i}")
                         new_price=get_last_trade_price(i["strike_rate"],i["expiry_date"], i["Instrument"])
-                        api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['expiry_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
+                        api_connect.PlaceTrade(Trading_Symbol = f"NIFTY{i['Nuvama_date']}{i['strike_rate']}{i['Instrument']}E", Exchange = ExchangeEnum.NFO, Action = ActionEnum.SELL, Duration = DurationEnum.DAY, Order_Type = OrderTypeEnum.MARKET, Quantity = i["Quantity"], Streaming_Symbol = "NFO", Limit_Price = "0", Disclosed_Quantity="0", TriggerPrice="0", ProductCode = ProductCodeENum.MIS) 
 
                         # sell_order(f"NIFTY{i['expiry_date']}{i['Instrument']}{i['strike_rate']}", i['Quantity'])
                         save_market_data(timestamp = datetime.now().timestamp(), trade_type="Sell", nifty_open=nifty_open, nifty_low=nifty_low, nifty_high=nifty_high, nifty_current=nifty_price, yesterday_low=yesterday_low, yesterday_high=yesterday_high, at_9_30=LTP_at_930,LTP_at_10=LTP_at_10, at_10_15=LTP_at_1015, at_10_30=LTP_at_1030, at_12_30=LTP_at_1230, at_1_00=LTP_at_1, at_1_15=LTP_at_115, at_1_30=LTP_at_130, strike=i["strike_rate"], instrument=i["Instrument"], option_chain_price=new_price, expiry_date=i["expiry_date"],Quantity=i["Quantity"])
@@ -659,7 +672,7 @@ def fetch_nifty_data():
         except:
             pass
 
-        # LTP_at_930=22909.30
+        # LTP_at_930=23027.70
         # LTP_at_10=23312.25
         # LTP_at_1015=23260.65
         # LTP_at_1030=24964.75
@@ -667,8 +680,8 @@ def fetch_nifty_data():
         # nifty_price =23688.95
         # nifty_high =23830.85
         # nifty_low =23636.15
-        # LTP_at_1230=22935.80
-        # LTP_at_1=22862.8
+        # LTP_at_1230=22847.10
+        # LTP_at_1=22803.10
         # yesterday_high=23169.6
         # yesterday_low=22900.0
        
@@ -699,10 +712,10 @@ def fetch_nifty_data():
                     
         if current_time >= datetime.strptime("10:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:19:00", "%H:%M:%S").time():
             
-            if (nifty_high- nifty_open) > 75.0  and (nifty_open- nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1015 - LTP_at_10) > 0.0 and len(at_1015)==0 and len(at_10)!=0:
+            if (LTP_at_1015 - LTP_at_10) > 0.0 and len(at_1015)==0 and len(at_10)!=0:
                 pass 
 
-            elif (nifty_high- nifty_open) > 75.0  and (nifty_open- nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1015 - LTP_at_10) < -5.0 and len(at_1015)==0 and len(at_10)!=0:
+            elif (LTP_at_1015 - LTP_at_10) < -5.0 and len(at_1015)==0 and len(at_10)!=0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')   # buy put for safety guard
                 # buy put at this conditons
 
@@ -710,11 +723,11 @@ def fetch_nifty_data():
     # condtion check at 10:30 AM CALL 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:45:00", "%H:%M:%S").time() and len(at_10)!=0:
-            if (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1030 - LTP_at_10) > 2.0 and len(at_1030)==0 and global_investment_checker_at_30==0:
+            if (LTP_at_1030 - LTP_at_10) > 2.0 and len(at_1030)==0 and global_investment_checker_at_30==0 and len(at_10)!=0:
                 print("H1 call morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')
             
-            elif (nifty_high - nifty_open) > 75.0 and (nifty_open- nifty_low)< 75.0 and nifty_low > yesterday_low and (LTP_at_10 - LTP_at_930) > 2.0 and (LTP_at_1030 - LTP_at_10) < 0.0 and len(at_1030)==0 and global_investment_checker_at_30==0:
+            elif (LTP_at_1030 - LTP_at_10) < 0.0 and len(at_1030)==0 and global_investment_checker_at_30==0 and len(at_10)!=0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')  # buy put for safety guard
                 # buy put at this conditons
         
@@ -736,10 +749,10 @@ def fetch_nifty_data():
         #condtion check at 10:15 AM PUT  
         
         if current_time >= datetime.strptime("10:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:19:00", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1015 - LTP_at_10) < 0.0 and len(at_1015)==0 and len(at_10)!=0:
+            if (LTP_at_1015 - LTP_at_10) < 0.0 and len(at_1015)==0 and len(at_10)!=0:
                     pass
                   
-            elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1015 - LTP_at_10) > 5.0 and len(at_1015)==0 and len(at_10)!=0:
+            elif (LTP_at_1015 - LTP_at_10) > 5.0 and len(at_1015)==0 and len(at_10)!=0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                     # buy put for safety guard
 
@@ -748,11 +761,11 @@ def fetch_nifty_data():
        #condtion check at 10:30 AM PUT 
 
         if current_time >= datetime.strptime("10:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("10:44:00", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) < -2.0 and len(at_1030)==0 and len(at_10)!=0 and global_investment_checker_at_30==0:
+            if   (LTP_at_1030 - LTP_at_10) < -2.0 and len(at_1030)==0 and len(at_10)!=0 and global_investment_checker_at_30==0 and len(at_10)!=0:
                 print("H1 put morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
      
-            elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_10 - LTP_at_930) < -2.0 and (LTP_at_1030 - LTP_at_10) > 0.0 and len(at_1030)==0 and len(at_10)!=0 and global_investment_checker_at_30==0:
+            elif  (LTP_at_1030 - LTP_at_10) > 0.0 and len(at_1030)==0 and len(at_10)!=0 and global_investment_checker_at_30==0 and len(at_10)!=0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 # buy put for safety guard
 
@@ -775,9 +788,9 @@ def fetch_nifty_data():
     #condtion check at 1:15 PM CALl
 
         if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:19:00", "%H:%M:%S").time() :
-            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1- LTP_at_1230) > 2.0 and (LTP_at_115 - LTP_at_1) > 0.0 and len(at_115)==0 and len(at_1)!=0:
+            if (LTP_at_1- LTP_at_1230) > 2.0 and (LTP_at_115 - LTP_at_1) > 0.0 and len(at_115)==0 and len(at_1)!=0:
                 pass 
-            elif (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1- LTP_at_1230) > 2.0 and (LTP_at_115 - LTP_at_1)< -5.0 and len(at_115)==0 and len(at_1)!=0:
+            elif (LTP_at_1- LTP_at_1230) > 2.0 and (LTP_at_115 - LTP_at_1)< -5.0 and len(at_115)==0 and len(at_1)!=0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
                 # buy put for safety guard
                 # buy put at this conditons
@@ -787,11 +800,11 @@ def fetch_nifty_data():
     #condtion check at 1:30 PM CALL 
                        
         if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:34:00", "%H:%M:%S").time() :
-            if (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and (LTP_at_130- LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
+            if(LTP_at_130- LTP_at_1) > 2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 print("H1 call morning start-end time varifyed at 10:30 AM")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C') # 0 for strike rate 
 
-            elif (nifty_high - nifty_open) > 75.0  and (nifty_open - nifty_low) < 75.0 and nifty_low > yesterday_low and (LTP_at_1 - LTP_at_1230) > 2.0 and (LTP_at_130- LTP_at_1) < 0.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
+            elif(LTP_at_130- LTP_at_1) < 0.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
  #               buy put for safety guard
                 # buy put at this conditons
@@ -815,9 +828,9 @@ def fetch_nifty_data():
         #condtion check at 1:15 PM PUT 
         
         if current_time >= datetime.strptime("13:15:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:19:05", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0  and (LTP_at_1- LTP_at_1230) < -2.0 and (LTP_at_115- LTP_at_1) < 0.0 and len(at_115)==0 and len(at_1)!=0:
+            if (LTP_at_115- LTP_at_1) < 0.0 and len(at_115)==0 and len(at_1)!=0:
                 pass       
-            elif (nifty_high - nifty_open) < 75.0 and (nifty_open - nifty_low) >75.0 and (LTP_at_1- LTP_at_1230) < -2.0 and (LTP_at_115- LTP_at_1) > 5.0 and len(at_115)==0 and len(at_1)!=0:
+            elif (LTP_at_115- LTP_at_1) > 5.0 and len(at_115)==0 and len(at_1)!=0:
                 print("H1 put morning start-end time varifyed at 1:15 PM ")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 #   buy put for safety guard
@@ -827,11 +840,11 @@ def fetch_nifty_data():
 
 
         if current_time >= datetime.strptime("13:30:00", "%H:%M:%S").time() and current_time <= datetime.strptime("13:35:05", "%H:%M:%S").time():
-            if (nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0 and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
+            if (LTP_at_130 - LTP_at_1) < -2.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 print("H1 put morning start-end time varifyed at 1:30 PM level 1")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'P')# 0 for strike rate 
       
-            elif(nifty_high - nifty_open) < 75.0 and (nifty_open- nifty_low) >75.0  and (LTP_at_1 - LTP_at_1230) < -2.0 and (LTP_at_130 - LTP_at_1) > 0.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
+            elif(LTP_at_130 - LTP_at_1) > 0.0 and len(at_130)==0 and len(at_1)!=0 and global_investment_checker_at_30==0:
                 print("H1 put morning start-end time varifyed at 1:30 PM level 2")
                 get_strikes_and_expiry(nifty_open,nifty_price,nifty_low,nifty_high,'C')# 0 for strike rate 
                 # buy put for safety guard
