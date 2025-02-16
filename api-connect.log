@@ -5190,3 +5190,405 @@
 2025-02-14 13:25:45,656 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
 2025-02-14 13:25:45,975 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
 2025-02-14 13:25:46,055 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:07:43,996 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-14 15:07:43,996 [INFO] constants.router: Router object is being created.
+2025-02-14 15:07:43,996 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-14 15:07:43,996 [INFO] APIConnect.http: Http object is being created.
+2025-02-14 15:07:43,996 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-14 15:07:43,996 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-14 15:07:43,996 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-14 15:07:43,997 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-14 15:07:44,002 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-14 15:07:44,168 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-14 15:07:44,169 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739491224469, 'exp': 1739491224461, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': 'd3ffd30c-597b-42b3-9464-7bcd9d099e94', 'srvTm': 1739525864217}
+2025-02-14 15:07:44,272 [INFO] feed.feed: Connection established with subscriber.
+2025-02-14 15:07:44,575 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-14 15:07:44,655 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-14 15:07:44,688 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-14 15:07:45,050 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-14 15:07:45,053 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-14 15:07:45,076 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-14 15:07:45,109 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:45,210 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-14 15:07:45,211 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:45,282 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-14 15:07:57,101 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:57,164 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-14 15:07:57,165 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:57,229 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-14 15:07:57,230 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): v2api.aliceblueonline.com:443
+2025-02-14 15:07:57,395 [DEBUG] urllib3.connectionpool: https://v2api.aliceblueonline.com:443 "GET /restpy/static/contract_master/NFO.csv HTTP/1.1" 200 4596707
+2025-02-14 15:07:57,717 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:57,816 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:07:58,145 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:58,245 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:07:58,567 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:58,652 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:07:58,971 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:59,058 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:07:59,382 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:59,455 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:07:59,775 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:07:59,891 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:08:00,208 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:08:00,299 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:08:00,627 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:08:00,722 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:08:01,045 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:08:01,140 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:08:01,462 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:08:01,556 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:08:01,876 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:08:01,970 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:08:02,297 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:08:02,400 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:10:47,833 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-14 15:10:47,833 [INFO] constants.router: Router object is being created.
+2025-02-14 15:10:47,834 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-14 15:10:47,834 [INFO] APIConnect.http: Http object is being created.
+2025-02-14 15:10:47,834 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-14 15:10:47,834 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-14 15:10:47,834 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-14 15:10:47,834 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-14 15:10:47,839 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-14 15:10:47,954 [INFO] feed.feed: Connection established with subscriber.
+2025-02-14 15:10:48,036 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-14 15:10:48,037 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739491224469, 'exp': 1739491224461, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': '78995ded-da14-4d9b-9b67-7c84518d5fc1', 'srvTm': 1739526048076}
+2025-02-14 15:10:48,429 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-14 15:10:48,515 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-14 15:10:48,552 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-14 15:10:48,917 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-14 15:10:48,920 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-14 15:10:48,940 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-14 15:10:48,971 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:10:49,052 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-14 15:10:49,053 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:10:49,119 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-14 15:10:59,704 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:10:59,767 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-14 15:10:59,768 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:10:59,832 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-14 15:10:59,833 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): v2api.aliceblueonline.com:443
+2025-02-14 15:10:59,910 [DEBUG] urllib3.connectionpool: https://v2api.aliceblueonline.com:443 "GET /restpy/static/contract_master/NFO.csv HTTP/1.1" 200 4596707
+2025-02-14 15:11:00,237 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:00,330 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:00,660 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:00,737 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:01,063 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:01,137 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:01,456 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:01,533 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:01,857 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:01,941 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:02,266 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:02,344 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:02,667 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:02,747 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:03,069 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:03,149 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:03,476 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:03,556 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:03,882 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:03,966 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:04,294 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:04,382 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:04,705 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:04,786 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:05,109 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:05,197 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:05,521 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:05,605 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:05,924 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:06,029 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:06,352 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:06,431 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:06,765 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:06,871 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 15:11:07,195 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 15:11:07,286 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:07,514 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-14 20:27:07,514 [INFO] constants.router: Router object is being created.
+2025-02-14 20:27:07,514 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-14 20:27:07,514 [INFO] APIConnect.http: Http object is being created.
+2025-02-14 20:27:07,514 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-14 20:27:07,515 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-14 20:27:07,515 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-14 20:27:07,515 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-14 20:27:07,520 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-14 20:27:07,629 [INFO] feed.feed: Connection established with subscriber.
+2025-02-14 20:27:07,753 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-14 20:27:07,754 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739491224469, 'exp': 1739491224461, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': 'f5724cf4-1438-4cb0-b46d-3a74df4eb7e0', 'srvTm': 1739545029765}
+2025-02-14 20:27:13,378 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-14 20:27:13,756 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-14 20:27:13,792 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-14 20:27:14,169 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-14 20:27:14,171 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-14 20:27:14,193 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-14 20:27:14,224 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:14,327 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-14 20:27:14,328 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:14,397 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-14 20:27:25,348 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:25,420 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-14 20:27:25,421 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:25,484 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-14 20:27:25,485 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): v2api.aliceblueonline.com:443
+2025-02-14 20:27:25,580 [DEBUG] urllib3.connectionpool: https://v2api.aliceblueonline.com:443 "GET /restpy/static/contract_master/NFO.csv HTTP/1.1" 200 4596707
+2025-02-14 20:27:33,148 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:33,236 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:33,561 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:33,643 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:33,969 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:34,055 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:34,375 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:34,457 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:34,778 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:34,858 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:35,188 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:35,292 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:35,619 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:35,697 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:36,024 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:36,104 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:36,430 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:36,512 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:36,837 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:36,922 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:37,244 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:37,329 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:37,645 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:37,724 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:38,040 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:38,120 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:38,446 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:38,532 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:38,849 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:38,935 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:39,260 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:39,367 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:39,691 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:39,780 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-14 20:27:40,131 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-14 20:27:40,231 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:24:51,941 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-16 11:24:51,941 [INFO] constants.router: Router object is being created.
+2025-02-16 11:24:51,941 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-16 11:24:51,941 [INFO] APIConnect.http: Http object is being created.
+2025-02-16 11:24:51,941 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-16 11:24:51,941 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-16 11:24:51,941 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-16 11:24:51,942 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-16 11:24:51,947 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-16 11:24:52,170 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 401 174
+2025-02-16 11:24:52,171 [DEBUG] APIConnect.http: Error response: {"config":{},"error":{"actCd":"52","errCd":"ETRD00036","errMsg":"Invalid Source Token. Session Expired"},"msgID":"3b813714-7b30-4a7e-a98b-6dbe814435d7","srvTm":1739685292402}
+2025-02-16 11:24:52,171 [DEBUG] APIConnect.api_utils: Response received: 
+2025-02-16 11:24:52,243 [INFO] feed.feed: Connection established with subscriber.
+2025-02-16 11:24:58,616 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-16 11:24:59,002 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-16 11:24:59,054 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-16 11:24:59,419 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-16 11:24:59,421 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-16 11:24:59,442 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-16 11:24:59,475 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:24:59,560 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:24:59,562 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:24:59,620 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:25:02,170 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:02,238 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:25:02,277 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:02,363 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:25:05,364 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:05,434 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:25:05,452 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:05,536 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:25:08,541 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:08,613 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:25:08,642 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:08,722 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:25:11,539 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:11,607 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:25:11,626 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:11,701 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:25:12,117 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:25:12,185 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:27:53,414 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-16 11:27:53,414 [INFO] constants.router: Router object is being created.
+2025-02-16 11:27:53,414 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-16 11:27:53,414 [INFO] APIConnect.http: Http object is being created.
+2025-02-16 11:27:53,414 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-16 11:27:53,414 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-16 11:27:53,419 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-16 11:27:53,813 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-login/login/accounts/loginvendor/877nujhgiEqQhg/ HTTP/1.1" 200 None
+2025-02-16 11:27:53,814 [INFO] APIConnect.login_helper: User logged in successfully.
+2025-02-16 11:27:53,814 [INFO] APIConnect.login_helper: Vendor session generated.
+2025-02-16 11:27:53,920 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-login/login/accounts/logindata/ HTTP/1.1" 200 None
+2025-02-16 11:27:53,923 [DEBUG] APIConnect.login_helper: Login details are pickled in file.
+2025-02-16 11:27:53,923 [INFO] APIConnect.login_helper: Authorization done succesfully.
+2025-02-16 11:27:53,924 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-16 11:27:54,055 [INFO] feed.feed: Connection established with subscriber.
+2025-02-16 11:27:54,079 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-16 11:27:54,079 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739664023867, 'exp': 1739664023858, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': '6c30f042-ca78-4723-9d14-e7377ab94534', 'srvTm': 1739685474323}
+2025-02-16 11:28:01,263 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-16 11:28:01,659 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-16 11:28:01,689 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-16 11:28:02,047 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-16 11:28:02,050 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-16 11:28:02,072 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-16 11:28:02,103 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:02,176 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:02,177 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:02,238 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:28:04,900 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:04,980 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:05,014 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:05,106 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:08,175 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:08,241 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:08,266 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:08,350 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:11,248 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:11,319 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:11,351 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:11,437 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:14,386 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-16 11:28:14,386 [INFO] constants.router: Router object is being created.
+2025-02-16 11:28:14,386 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-16 11:28:14,386 [INFO] APIConnect.http: Http object is being created.
+2025-02-16 11:28:14,386 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-16 11:28:14,386 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-16 11:28:14,386 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-16 11:28:14,387 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-16 11:28:14,390 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-16 11:28:14,424 [INFO] feed.feed: Connection established with subscriber.
+2025-02-16 11:28:14,545 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-16 11:28:14,546 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739664023867, 'exp': 1739664023858, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': '4b8cb236-fbdd-4981-b726-8934668253c2', 'srvTm': 1739685494789}
+2025-02-16 11:28:21,688 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-16 11:28:22,073 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-16 11:28:22,124 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-16 11:28:22,483 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-16 11:28:22,485 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-16 11:28:22,506 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-16 11:28:22,537 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:22,605 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:22,606 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:22,663 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:28:25,354 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:25,425 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:25,460 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:25,552 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:28,425 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:28,498 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:28,520 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:28,602 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:31,909 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:31,984 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:32,015 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:32,104 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:35,286 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:35,351 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:35,382 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:35,483 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 401 12
+2025-02-16 11:28:35,822 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:35,884 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:41,683 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-16 11:28:41,683 [INFO] constants.router: Router object is being created.
+2025-02-16 11:28:41,683 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-16 11:28:41,683 [INFO] APIConnect.http: Http object is being created.
+2025-02-16 11:28:41,683 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-16 11:28:41,683 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-16 11:28:41,683 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-16 11:28:41,684 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-16 11:28:41,688 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-16 11:28:41,715 [INFO] feed.feed: Connection established with subscriber.
+2025-02-16 11:28:41,809 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-16 11:28:41,810 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739664023867, 'exp': 1739664023858, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': 'b5cabbd7-2193-4869-8f06-b1e9e538efc5', 'srvTm': 1739685522054}
+2025-02-16 11:28:45,766 [INFO] APIConnect.APIConnect: Loggers initiated with provided configuration.
+2025-02-16 11:28:45,766 [INFO] constants.router: Router object is being created.
+2025-02-16 11:28:45,766 [INFO] constants.router: URL constants loaded with provided configuration file.
+2025-02-16 11:28:45,766 [INFO] APIConnect.http: Http object is being created.
+2025-02-16 11:28:45,766 [INFO] APIConnect.login_helper: LoginHelper object is being created.
+2025-02-16 11:28:45,766 [INFO] APIConnect.order_helper: OrderHelper object is being created.
+2025-02-16 11:28:45,766 [INFO] APIConnect.APIConnect: User data file found, loading data.
+2025-02-16 11:28:45,766 [INFO] APIConnect.api_utils: Checking for new update.
+2025-02-16 11:28:45,770 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): nc.nuvamawealth.com:443
+2025-02-16 11:28:45,797 [INFO] feed.feed: Connection established with subscriber.
+2025-02-16 11:28:45,914 [DEBUG] urllib3.connectionpool: https://nc.nuvamawealth.com:443 "POST /edelmw-content/content/adhoc/lib/version/ HTTP/1.1" 200 None
+2025-02-16 11:28:45,915 [DEBUG] APIConnect.api_utils: Response received: {'appID': 'a5cbb543e3a7fb6bb063356377d6ad55', 'config': {'app': 1, 'bseExp': 1739664023867, 'exp': 1739664023858, 'info': 4}, 'data': {'type': 'libVsnResponseDao', 'msg': '', 'sts': True, 'vsn': '2.0.2'}, 'msgID': '3d503cdf-d3cc-48e4-8423-c8295b55bd9d', 'srvTm': 1739685526154}
+2025-02-16 11:28:55,595 [INFO] APIConnect.login_helper: Downloaded instruments.zip
+2025-02-16 11:28:55,978 [INFO] APIConnect.login_helper: Downloaded mfInstruments.zip
+2025-02-16 11:28:56,029 [INFO] APIConnect.login_helper: Extracted instruments.csv
+2025-02-16 11:28:56,388 [INFO] APIConnect.login_helper: Loaded instruments.csv
+2025-02-16 11:28:56,391 [INFO] APIConnect.login_helper: Extracted mfInstruments.csv
+2025-02-16 11:28:56,414 [INFO] APIConnect.login_helper: Loaded mfInstruments.csv
+2025-02-16 11:28:56,442 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:56,530 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:56,531 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:56,606 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:28:59,293 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:59,365 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:28:59,369 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:59,431 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:28:59,460 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:28:59,764 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 200 None
+2025-02-16 11:29:11,635 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:11,716 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:29:11,720 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:11,795 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:29:11,828 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:12,250 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/chart/history HTTP/1.1" 200 None
+2025-02-16 11:29:20,828 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:20,919 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getAPIEncpkey HTTP/1.1" 200 None
+2025-02-16 11:29:20,920 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:20,985 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/customer/getUserSID HTTP/1.1" 200 None
+2025-02-16 11:29:20,987 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): v2api.aliceblueonline.com:443
+2025-02-16 11:29:21,100 [DEBUG] urllib3.connectionpool: https://v2api.aliceblueonline.com:443 "GET /restpy/static/contract_master/NFO.csv HTTP/1.1" 200 4729233
+2025-02-16 11:29:30,111 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:30,186 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:30,518 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:30,617 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:30,958 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:31,050 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:31,386 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:31,465 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:31,805 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:31,879 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:32,216 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:32,308 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:32,645 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:32,736 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:33,080 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:33,161 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:33,506 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:33,597 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:33,940 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:34,024 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:34,361 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:34,435 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:34,777 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:34,857 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:35,197 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:35,287 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:35,624 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:35,705 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:36,042 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:36,130 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:36,473 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:36,574 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:36,915 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:37,006 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:37,348 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:37,427 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:37,767 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:37,855 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:38,194 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:38,281 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:38,621 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:38,699 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:39,036 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:39,175 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:39,517 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:39,597 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:39,935 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:40,019 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None
+2025-02-16 11:29:40,354 [DEBUG] urllib3.connectionpool: Starting new HTTPS connection (1): ant.aliceblueonline.com:443
+2025-02-16 11:29:40,455 [DEBUG] urllib3.connectionpool: https://ant.aliceblueonline.com:443 "POST /rest/AliceBlueAPIService/api/ScripDetails/getScripQuoteDetails HTTP/1.1" 200 None

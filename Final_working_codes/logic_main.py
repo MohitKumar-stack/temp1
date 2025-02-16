@@ -1,6 +1,7 @@
 import pandas as pd
 import time as t
 import threading
+from pya3 import Aliceblue
 import pytz
 from decimal import Decimal
 from datetime import datetime,timedelta
@@ -9,13 +10,15 @@ import ssl
 import mysql.connector
 from mysql.connector import Error
 import json
-from order_trigger import place_order,sell_order
+# from order_trigger import place_order,sell_order
 from key_generator import key_genrater  # for key_genrater function
 from get_yesterday_low import yesterday_lowest_market_value  # for get_yesterday_low function
 from get_yesterday_high import yesterday_highest_market_value
 from APIConnect.APIConnect import APIConnect 
 
-nuvama_req_id ="303062c56710f173"
+nuvama_req_id ="393131c9448aa548"
+
+#"303062c56710f173"
 
 
 api_connect = APIConnect(
@@ -27,6 +30,7 @@ api_connect = APIConnect(
 )
 
 # https://www.nuvamawealth.com/api-connect/login?api_key=877nujhgiEqQhg
+
 from constants.exchange import ExchangeEnum
 from constants.order_type import OrderTypeEnum
 from constants.product_code import ProductCodeENum
@@ -66,8 +70,8 @@ api_key = "Z7PigAB8aqzbupeF32NaqM7DysmojljIUTK1754cb2M2vQLxePl0Rnscuz2p5uaaJPeXB
 # Initialize Aliceblue session
 alice = Aliceblue(username, api_key)
 session_id = alice.get_session_id()['sessionID']
-alice.get_contract_master("NFO")
 
+Aliceblue(username, api_key).get_contract_master("NFO")
 
 #global variable declarations
 global LTP_at_930, LTP_at_10, LTP_at_1015, LTP_at_1030, LTP_at_1230, LTP_at_1,LTP_at_115, LTP_at_130
