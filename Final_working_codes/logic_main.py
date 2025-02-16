@@ -16,7 +16,8 @@ from get_yesterday_low import yesterday_lowest_market_value  # for get_yesterday
 from get_yesterday_high import yesterday_highest_market_value
 from APIConnect.APIConnect import APIConnect 
 
-nuvama_req_id ="393131c9448aa548"
+nuvama_req_id ="643931fa73cbda98"
+# 393131c9448aa548"
 
 #"303062c56710f173"
 
@@ -26,7 +27,7 @@ api_connect = APIConnect(
     "74BjQ&3cylKWKot(",
     nuvama_req_id,
     True,
-    "/Users/mohitkumar/Downloads/Php Project/Final_working_codes/python-settings.ini"
+    "/Users/mohitkumar/Downloads/Python Project/Final_working_codes/python-settings.ini"
 )
 
 # https://www.nuvamawealth.com/api-connect/login?api_key=877nujhgiEqQhg
