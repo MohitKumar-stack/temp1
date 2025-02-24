@@ -88,12 +88,10 @@ Aliceblue(username, api_key).get_contract_master("NFO")
 
 # global variable defining
 
-def get_expiry_date():
-    today = datetime.now().date()  # Get today's date
-    print("Today's Date:", today.strftime('%A, %d %b %Y'))  # Print today's date with the day
-    print("Weekday Number:", today.weekday())  # Print the numeric representation of the weekday (Monday = 0, Sunday = 6)
 
-    # Calculate how many days to add to reach next week's Thursday
+def get_expiry_date():
+    today = datetime.now().date()  #
+
     # Thursday is weekday number 3
     if today.weekday() <= 3:  # If today is before or on Thursday
         days_until_next_thursday = (10 - today.weekday())  # Skip to next week's Thursday
@@ -106,34 +104,14 @@ def get_expiry_date():
     formatted_date = next_week_thursday.strftime('%d%b%y').upper()
     print("Next Week's Thursday Date:", formatted_date)
 
-    # Check if the calculated Thursday is the last Thursday of the month
-    last_day_of_month = (next_week_thursday.replace(day=1) + timedelta(days=32)).replace(day=1) - timedelta(days=1)
-    
-    last_thursday = last_day_of_month
-    while last_thursday.weekday() != 3:  # Find the last Thursday of the month
-        last_thursday -= timedelta(days=1)
+    # nuvama date formated 
+    #25220
+    dt = datetime.strptime(formatted_date, "%d%b%y")
+    Nuvama_date = dt.strftime("%y%-m%d") if dt.month > 9 else dt.strftime("%y") + str(dt.month) + dt.strftime("%d")
 
-    # If the next week's Thursday is the last Thursday of the month, format differently
-    if next_week_thursday == last_thursday:
-        Nuvama_date = next_week_thursday.strftime("%d%b").upper()  # Format as DDMMM
-    else:
-        dt = datetime.strptime(formatted_date, "%d%b%y")
-        from calendar import monthrange
 
-        last_day = monthrange(next_week_thursday.year, next_week_thursday.month)[1]  # Get the last day of the month
-        last_thursday = max(
-            [day for day in range(last_day - 6, last_day + 1) if datetime(next_week_thursday.year, next_week_thursday.month, day).weekday() == 3]
-        )  # Find the last Thursday of the month
-
-        Nuvama_date = "25" + next_week_thursday.strftime("%b").upper() if next_week_thursday.day == last_thursday else dt.strftime("%y%-m%d") if dt.month > 9 else dt.strftime("%y") + str(dt.month) + dt.strftime("%d")
-        
-        # Nuvama_date = "25" + next_week_thursday.strftime("%b").upper() if next_week_thursday == last_thursday else dt.strftime("%y%-m%d") if dt.month > 9 else dt.strftime("%y") + str(dt.month) + dt.strftime("%d")
-
-        # Nuvama_date = dt.strftime("%y%-m%d") if dt.month > 9 else dt.strftime("%y") + str(dt.month) + dt.strftime("%d")
-
-    Nuvama_date="25FEB"
-    print("Nuvama Date:", Nuvama_date)
-    return formatted_date, Nuvama_date
+    # print("Nuvama Date:", Nuvama_date)
+    return formatted_date,Nuvama_date
 
 
 def valid_strike_rate(nifty_price,Instrument):
