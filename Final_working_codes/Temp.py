@@ -1,32 +1,30 @@
-from APIConnect.APIConnect import APIConnect
-import json
-nuvama_req_id ="326334c7d23caaaa"
 
+from datetime import datetime,timedelta
+def get_expiry_date():
+    global formatted_date, Nuvama_date
+    today = datetime.now().date() 
+    
+    # Thursday is weekday number 3
+    if today.weekday() <= 3:  # If today is before or on Thursday
+        days_until_next_thursday = (10 - today.weekday())  # Skip to next week's Thursday
+    else:  # If today is after Thursday
+        days_until_next_thursday = (3 - today.weekday() + 7)
+    
+    next_week_thursday = today + timedelta(days=days_until_next_thursday)  # Get next week's Thursday
+    
+    # Format the date as 'DDMMMYY'
+    formatted_date = next_week_thursday.strftime('%d%b%y').upper()
+    print("Next Week's Thursday Date:", formatted_date)
+    
+    dt = datetime.strptime(formatted_date, "%d%b%y")
+    # print("dt:", dt.day)
+    # Check if the day is 24 or later
+    if dt.day >= 24:
+        Nuvama_date = dt.strftime("%y%b").upper()  # Format as "YYMMM" only
+    else:
+        Nuvama_date = dt.strftime("%y%-m%d") if dt.month > 9 else dt.strftime("%y") + str(dt.month) + dt.strftime("%d")
+    
+    return 
 
-api_connect = APIConnect(
-    "877nujhgiEqQhg",
-    "74BjQ&3cylKWKot(",
-    nuvama_req_id,
-    True,
-    "/Users/mohitkumar/Downloads/Python Project/Final_working_codes/python-settings.ini"
-)
-
-
-# Extracting the "cshAvl" value from each JSON object
-def quantity_calc():
-    for json_obj in api_connect.Limits().strip().split("\n"):
-        data = json.loads(json_obj)
-        csh_avl = data["eq"]["data"]["cshAvl"]
-        print(csh_avl)
-        csh_avl=99960.00
-        lot_size = 75.0  # Lot size
-        lots = int(csh_avl // lot_size)
-        lots_60 = int(lots * 0.6)
-        lots_20 = int(lots * 0.2)
-        lots_40 = int(lots * 0.4)  # Calculate number of lots
-        print(f"Total Lots: {lots}")
-        print(f"60% Lots: {lots_60}")
-        print(f"20% Lots: {lots_20}")
-        print(f"40% Lots: {lots_40}")
-
-quantity_calc()
+formatted_date, Nuvama_date= get_expiry_date()
+print(formatted_date, Nuvama_date)
